@@ -66,12 +66,12 @@ function App() {
               <Hero />
             </section>
 
-            <section id="experience">
-              <Experience />
-            </section>
-
             <section id="projects">
               <Projects />
+            </section>
+
+            <section id="experience">
+              <Experience />
             </section>
 
             <section id="skills">
