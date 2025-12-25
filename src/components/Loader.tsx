@@ -1,7 +1,11 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-export const Loader = ({ setLoading }) => {
+export const Loader = ({
+  setLoading,
+}: {
+  setLoading: (loading: boolean) => void;
+}) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {

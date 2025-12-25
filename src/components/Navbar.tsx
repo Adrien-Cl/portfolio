@@ -1,6 +1,12 @@
 import { Github, Linkedin, Moon, Sun } from "lucide-react";
 
-export const Navbar = ({ isDark, setIsDark }) => {
+export const Navbar = ({
+  isDark,
+  setIsDark,
+}: {
+  isDark: boolean;
+  setIsDark: (value: boolean) => void;
+}) => {
   const navLinks = [
     { name: "Projets", href: "#projects" },
     { name: "Expériences", href: "#experience" },
