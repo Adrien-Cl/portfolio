@@ -29,7 +29,7 @@ const SKILLS = [
   { name: "Figma", icon: SiFigma },
 ];
 
-export const SkillsSlider = ({ isDark }) => {
+export const SkillsSlider = ({ isDark }: { isDark: boolean }) => {
   const doubledSkills = [...SKILLS, ...SKILLS];
 
   return (
