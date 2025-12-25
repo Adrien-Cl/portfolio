@@ -1,0 +1,7 @@
+services:
+  portfolio:
+    build: /home/adrien/portfolio-react
+    container_name: portfolio_react
+    ports:
+      - "8080:80"
+    restart: unless-stopped
