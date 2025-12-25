@@ -1,6 +1,8 @@
 services:
   portfolio:
-    build: /home/adrien/portfolio-react
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: portfolio_react
     ports:
       - "8080:80"
