@@ -13,10 +13,7 @@ const EXPERIENCES = [
     title: "🛒 CDI | Super U Rennes St Jacques",
     sub: "Hôte de Caisse, Fleuriste, Gestion du Coffre",
     date: "2023 — 2025",
-    desc: [
-      "Gestion quotidienne du coffre [cite: 35]",
-      "Hôte de caisse et de Fleuriste [cite: 35]",
-    ],
+    desc: ["Gestion quotidienne du coffre", "Hôte de caisse et de Fleuriste"],
   },
   {
     title: "📱 Alternance | Rennes Aqua Center",
@@ -39,8 +36,7 @@ export const Experience = () => (
       {EXPERIENCES.map((exp, i) => (
         <div
           key={i}
-          className="flex flex-col md:flex-row justify-between items-start gap-20 border-b-2 border-black pb-12"
-        >
+          className="flex flex-col md:flex-row justify-between items-start gap-20 border-b-2 border-black pb-12">
           <div className="flex-1">
             <span className="text-2xl font-mono font-bold italic block mb-4">
               {exp.date}
@@ -58,8 +54,7 @@ export const Experience = () => (
               {exp.desc.map((item, j) => (
                 <p
                   key={j}
-                  className="text-xl font-medium border-l-2 border-black pl-4 min-w-[300px]"
-                >
+                  className="text-xl font-medium border-l-2 border-black pl-4 min-w-75">
                   {item}
                 </p>
               ))}
