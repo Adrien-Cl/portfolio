@@ -35,8 +35,7 @@ function App() {
     <div
       className={`${
         isDark ? "dark bg-[#0f0f0f] text-[#e5e5e5]" : "bg-white text-black"
-      } min-h-screen transition-colors duration-500 font-sans selection:bg-blue-500 selection:text-white`}
-    >
+      } min-h-screen transition-colors duration-500 font-sans selection:bg-blue-500 selection:text-white`}>
       <AnimatePresence mode="wait">
         {isLoading && <Loader key="loader" setLoading={setLoading} />}
       </AnimatePresence>
@@ -60,8 +59,7 @@ function App() {
             transition={{ duration: 1, delay: 0.2 }}
             className={`w-full flex flex-col divide-y-2 ${
               isDark ? "divide-white/10" : "divide-black"
-            }`}
-          >
+            }`}>
             <section id="home">
               <Hero />
             </section>
@@ -87,19 +85,23 @@ function App() {
                 isDark
                   ? "border-white/10 bg-[#0a0a0a]"
                   : "border-black bg-black text-white"
-              }`}
-            >
+              }`}>
               <div className="grid md:grid-cols-2 gap-10">
                 <div className="space-y-4">
                   <h2 className="text-4xl md:text-6xl font-black uppercase italic leading-none">
-                    Travaillons <br /> ensemble.
+                    DÉMARRONS <br />
+                    UN PROJET.
                   </h2>
                   <div className="pt-6 space-y-2 text-xl font-bold">
-                    <p>07.81.63.10.32</p>
+                    <a
+                      href="tel:0781631032"
+                      className="hover:text-blue-400 transition-colors">
+                      07.81.63.10.32
+                    </a>
+                    <br />
                     <a
                       href="mailto:adrien.clavreul@gmail.com"
-                      className="underline underline-offset-8 hover:text-blue-400 transition-colors"
-                    >
+                      className="hover:text-blue-400 transition-colors">
                       adrien.clavreul@gmail.com
                     </a>
                   </div>

@@ -3,22 +3,29 @@ import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
 
 const PROJECTS = [
   {
-    title: "Application Métier CNFPT",
-    category: "Développement Full Stack",
-    desc: "Conception et développement d'une application interne pour la gestion des agents. Focus sur l'efficacité et la manipulation de données.",
-    tech: ["React", "PHP", "MySQL"],
+    title: "Portfolio Personnel",
+    category: "Web Design & Développement",
+    desc: "Développement d'un portfolio personnel pour présenter mes compétences, expériences et projets réalisés en tant que développeur web.",
+    tech: ["React", "TypeScript", "Framer Motion", "Tailwind CSS"],
     link: "#",
-    github: "#",
-    img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
+    img: "./public/media/portfolio-hero.png",
+    github: "https://github.com/Adrien-Cl/portfolio",
+  },
+  {
+    title: "SkillSkyDrone",
+    category: "Web Design & Développement",
+    desc: "Création d'un site vitrine pour des passionnés de drone, mettant en avant leurs services avec un design moderne et minimaliste.",
+    tech: ["Wordpress", "JS", "CSS3"],
+    link: "https://skillskydrone.com",
+    img: "./public/media/skillskydrone-hero.png",
   },
   {
     title: "Refonte Rennes Aqua Center",
-    category: "Web Design & Dév",
+    category: "Web Design & Développement",
     desc: "Modernisation complète de l'interface utilisateur et optimisation du tunnel de conversion pour le site e-commerce.",
-    tech: ["Wordpress", "JS", "CSS3"],
-    link: "#",
-    github: "#",
-    img: "https://images.unsplash.com/photo-1551288049-bbbda536339a?q=80&w=2340&auto=format&fit=crop",
+    tech: ["CMS CMonSite", "JS", "CSS3"],
+    link: "https://rennesaquacenter.fr",
+    img: "./public/media/rennesaquacenter-hero.png",
   },
 ];
 
@@ -35,9 +42,7 @@ export const Projects = () => (
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="group flex flex-col md:flex-row gap-16 items-center"
-        >
-          {/* Bloc Texte - Il se décale un peu au hover */}
+          className="group flex flex-col md:flex-row gap-16 items-center">
           <motion.div whileHover={{ x: 20 }} className="flex-1 space-y-8">
             <div className="space-y-2">
               <span className="text-blue-600 font-black uppercase tracking-widest text-sm italic">
@@ -57,45 +62,48 @@ export const Projects = () => (
             </p>
 
             <div className="flex flex-wrap gap-2">
-              {project.tech.map((t) => (
+              {project.tech.map(t => (
                 <span
                   key={t}
-                  className="bg-black dark:bg-white dark:text-black text-white text-xs font-black px-4 py-1 uppercase italic"
-                >
+                  className="bg-black dark:bg-white dark:text-black text-white text-xs font-black px-4 py-1 uppercase italic">
                   {t}
                 </span>
               ))}
             </div>
 
             <div className="flex gap-8 pt-4">
-              <a
-                href={project.github}
-                className="flex items-center gap-2 font-black uppercase text-xs tracking-widest hover:text-blue-600 transition-colors"
-              >
-                <Github size={16} /> Code Source
-              </a>
-              <a
-                href={project.link}
-                className="flex items-center gap-2 font-black uppercase text-xs tracking-widest hover:text-blue-600 transition-colors"
-              >
-                <ExternalLink size={16} /> Live Démo
-              </a>
+              {project.github && project.github !== "#" && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 font-black uppercase text-xs tracking-widest hover:text-blue-600 transition-colors">
+                  <Github size={16} /> Code Source
+                </a>
+              )}
+
+              {project.link && project.link !== "#" && (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 font-black uppercase text-xs tracking-widest hover:text-blue-600 transition-colors">
+                  <ExternalLink size={16} /> Voir le Site
+                </a>
+              )}
             </div>
           </motion.div>
 
-          {/* Bloc Image - Effet de zoom et overlay */}
           <motion.div
             whileHover={{ scale: 0.98 }}
-            className="flex-1 w-full aspect-video overflow-hidden border-2 border-black dark:border-white relative"
-          >
+            className="flex-1 w-full aspect-video overflow-hidden border-2 border-black dark:border-white relative">
             <motion.img
               whileHover={{ scale: 1.1 }}
               transition={{ duration: 0.6 }}
               src={project.img}
               alt={project.title}
-              className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+              className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 border border-black dark:border-white"
             />
-            {/* Overlay qui s'estompe au hover */}
             <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
           </motion.div>
         </motion.div>
