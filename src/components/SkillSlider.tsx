@@ -22,8 +22,6 @@ import {
   SiWordpress,
 } from "@icons-pack/react-simple-icons";
 import { motion } from "framer-motion";
-
-// 1. On définit le type pour un Skill
 interface Skill {
   name: string;
   icon: React.ElementType;
@@ -98,7 +96,6 @@ const ScrollingRow = ({
   </div>
 );
 
-// 3. On définit le type pour le composant principal
 interface SkillsSliderProps {
   isDark: boolean;
 }
@@ -109,14 +106,10 @@ export const SkillsSlider = ({ isDark }: SkillsSliderProps) => {
       className={`w-full py-12 md:py-24 overflow-hidden transition-colors ${
         isDark ? "bg-[#141414]" : "bg-gray-50"
       }`}>
-      {/* Version DESKTOP */}
-      <div className="hidden md:block">
-        <ScrollingRow items={SKILLS} duration={25} />
-      </div>
-
-      {/* Version MOBILE */}
-      <div className="md:hidden flex flex-col gap-2">
+      <div className="md:block">
         <ScrollingRow items={firstGroup} duration={15} />
+        <br />
+        <br />
         <ScrollingRow items={secondGroup} duration={18} reverse={true} />
       </div>
     </section>
