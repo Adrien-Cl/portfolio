@@ -20,6 +20,7 @@ import {
   SiTypescript,
   SiVuedotjs,
   SiWordpress,
+  SiApache
 } from "@icons-pack/react-simple-icons";
 import { motion } from "framer-motion";
 interface Skill {
@@ -48,6 +49,7 @@ const SKILLS: Skill[] = [
   { name: "Docker", icon: SiDocker },
   { name: "Portainer", icon: SiPortainer },
   { name: "Nginx", icon: SiNginx },
+  { name: "Apache", icon: SiApache },
   { name: "Linux", icon: SiLinux },
   { name: "Raspberry Pi", icon: SiRaspberrypi },
 
@@ -74,7 +76,7 @@ const ScrollingRow = ({
   <div className="flex whitespace-nowrap overflow-hidden py-4">
     <motion.div
       className="flex items-center"
-      animate={{ x: reverse ? ["-30%", "0%"] : ["0%", "-30%"] }}
+      animate={{ x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
       transition={{ repeat: Infinity, duration: duration, ease: "linear" }}>
       {[...items, ...items].map((skill, index) => (
         <div
@@ -107,10 +109,9 @@ export const SkillsSlider = ({ isDark }: SkillsSliderProps) => {
         isDark ? "bg-[#141414]" : "bg-gray-50"
       }`}>
       <div className="md:block">
-        <ScrollingRow items={firstGroup} duration={15} />
-        <br />
-        <br />
-        <ScrollingRow items={secondGroup} duration={18} reverse={true} />
+        <ScrollingRow items={firstGroup} duration={45} />
+        <div className="my-6" />
+        <ScrollingRow items={secondGroup} duration={55} reverse={true} />
       </div>
     </section>
   );

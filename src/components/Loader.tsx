@@ -1,32 +1,36 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { PERSONAL } from "../config/personal";
 
-export const Loader = ({
-  setLoading,
-}: {
+// Durée totale du loader : STEP_MS * 100 + EXIT_DELAY_MS ≈ 2s
+const STEP_MS = 15;
+const EXIT_DELAY_MS = 500;
+
+interface LoaderProps {
   setLoading: (loading: boolean) => void;
-}) => {
+}
+
+export const Loader = ({ setLoading }: LoaderProps) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    // Animation du compteur de 0 à 100
     const timer = setInterval(() => {
-      setCount((prev) => {
+      setCount(prev => {
         if (prev >= 100) {
           clearInterval(timer);
-          setTimeout(() => setLoading(false), 500); // Laisse 500ms à 100% avant d'ouvrir
+          setTimeout(() => setLoading(false), EXIT_DELAY_MS);
           return 100;
         }
         return prev + 1;
       });
-    }, 15); // Vitesse du compteur
+    }, STEP_MS);
 
     return () => clearInterval(timer);
   }, [setLoading]);
 
   return (
-    <div className="fixed inset-0 z-101 flex items-center justify-center overflow-hidden">
-      {/* Rideau du Haut */}
+    <div className="fixed inset-0 z-200 flex items-center justify-center overflow-hidden">
+      {/* Rideau du haut */}
       <motion.div
         initial={{ y: 0 }}
         exit={{ y: "-100%" }}
@@ -34,7 +38,7 @@ export const Loader = ({
         className="absolute top-0 left-0 w-full h-1/2 bg-black"
       />
 
-      {/* Rideau du Bas */}
+      {/* Rideau du bas */}
       <motion.div
         initial={{ y: 0 }}
         exit={{ y: "100%" }}
@@ -42,12 +46,11 @@ export const Loader = ({
         className="absolute bottom-0 left-0 w-full h-1/2 bg-black"
       />
 
-      {/* Chiffres du Compteur */}
+      {/* Compteur */}
       <motion.div
         exit={{ opacity: 0, scale: 0.5 }}
         transition={{ duration: 0.3 }}
-        className="relative z-102 flex flex-col items-center"
-      >
+        className="relative z-201 flex flex-col items-center">
         <span className="text-[15vw] font-black text-white leading-none tracking-tighter">
           {count}%
         </span>
@@ -59,7 +62,8 @@ export const Loader = ({
           />
         </div>
         <span className="text-white font-bold uppercase tracking-[0.5em] mt-8 text-sm">
-          Adrien Clavreul <span className="text-blue-600">© 2025</span>
+          {PERSONAL.name}{" "}
+          <span className="text-blue-600">© {new Date().getFullYear()}</span>
         </span>
       </motion.div>
     </div>
