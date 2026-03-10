@@ -1,3 +1,8 @@
 RewriteEngine On
+
+# Redirection HTTP → HTTPS
 RewriteCond %{SERVER_PORT} 80
 RewriteRule ^(.*)$ https://adrienclavreul.fr/$1 [R,L]
+
+# Page 404 personnalisée
+ErrorDocument 404 /404.html

@@ -11,6 +11,7 @@ import { Experience } from "./layout/Experience";
 import { Footer } from "./layout/Footer";
 import { Hero } from "./layout/Hero";
 import { Projects } from "./layout/Projects";
+import { Stats } from "./layout/Stats";
 
 function AppContent() {
   const [isLoading, setLoading] = useState(true);
@@ -22,7 +23,7 @@ function AppContent() {
 
   useEffect(() => {
     if (!isLoading) {
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: "instant" });
       document.body.style.overflow = "auto";
       scaleX.jump(0);
     } else {
@@ -60,6 +61,7 @@ function AppContent() {
               isDark ? "divide-white/10" : "divide-black"
             }`}>
             <section id="home"><Hero /></section>
+            <section id="stats"><Stats /></section>
             <section id="projects"><Projects /></section>
             <section id="experience"><Experience /></section>
             <section id="skills"><SkillsSlider isDark={isDark} /></section>

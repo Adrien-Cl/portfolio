@@ -1,6 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
 @import "tailwindcss";
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+/* Compense la hauteur de la navbar sticky */
+section[id] {
+  scroll-margin-top: 5rem;
+}
 
 :root {
   --font-family-base: "Inter", sans-serif;

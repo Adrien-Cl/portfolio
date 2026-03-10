@@ -14,13 +14,17 @@ interface NavbarProps {
   setIsDark: (value: boolean) => void;
 }
 
+function scrollTo(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+}
+
 export const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
   const { t, lang, toggleLang } = useLang();
 
   const navLinks = [
-    { name: t.nav.projects, href: "#projects" },
-    { name: t.nav.experience, href: "#experience" },
-    { name: t.nav.education, href: "#education" },
+    { name: t.nav.projects, id: "projects" },
+    { name: t.nav.experience, id: "experience" },
+    { name: t.nav.education, id: "education" },
   ];
 
   return (
@@ -35,23 +39,23 @@ export const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
       } backdrop-blur-md px-6 md:px-10 py-5 flex justify-between items-center`}>
 
       <div className="shrink-0">
-        <a href="#home" className="font-black text-2xl tracking-tighter">
+        <button onClick={() => scrollTo("home")} className="font-black text-2xl tracking-tighter">
           AC<span className="text-blue-600">.</span>
-        </a>
+        </button>
       </div>
 
       <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 gap-10">
         {navLinks.map((link, i) => (
-          <motion.a
+          <motion.button
             key={link.name}
-            href={link.href}
+            onClick={() => scrollTo(link.id)}
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 + i * 0.07, ease }}
             className="text-sm font-bold uppercase tracking-[0.2em] hover:text-blue-600 transition-colors relative group">
             {link.name}
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full" />
-          </motion.a>
+          </motion.button>
         ))}
       </div>
 

@@ -95,6 +95,7 @@ export const Projects = () => {
                   transition={{ duration: 0.7, ease }}
                   src={meta.img}
                   alt={project.title}
+                  loading="lazy"
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                 />
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700" />

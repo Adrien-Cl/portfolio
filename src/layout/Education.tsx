@@ -45,6 +45,7 @@ export const Education = () => {
                 <img
                   src={EDUCATION_LOGOS[i]}
                   alt={edu.school}
+                  loading="lazy"
                   className="max-w-full max-h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-500"
                 />
               </div>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 — Page introuvable | Adrien Clavreul</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="/Icon-AC.png" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --bg: #ffffff;
+        --fg: #000000;
+        --muted: #6b7280;
+        --accent: #2563eb;
+        --border: #000000;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0f0f0f;
+          --fg: #e5e5e5;
+          --muted: #9ca3af;
+          --border: rgba(255,255,255,0.1);
+        }
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: system-ui, -apple-system, sans-serif;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2.5rem;
+        gap: 2rem;
+      }
+
+      .label {
+        font-size: 0.65rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.4em;
+        color: var(--muted);
+      }
+
+      .code {
+        font-size: clamp(6rem, 20vw, 12rem);
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: -0.05em;
+        line-height: 0.85;
+        color: var(--fg);
+      }
+
+      .divider {
+        width: 3rem;
+        height: 3px;
+        background: var(--accent);
+      }
+
+      .message {
+        font-size: clamp(1rem, 2.5vw, 1.25rem);
+        font-weight: 500;
+        color: var(--muted);
+        text-align: center;
+        max-width: 30rem;
+        line-height: 1.6;
+        border-left: 3px solid var(--border);
+        padding-left: 1.25rem;
+      }
+
+      .back {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--fg);
+        color: var(--bg);
+        font-size: 0.7rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        padding: 0.75rem 1.5rem;
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s;
+        margin-top: 0.5rem;
+      }
+
+      .back:hover {
+        background: var(--accent);
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <span class="label">Erreur</span>
+    <p class="code">404</p>
+    <div class="divider"></div>
+    <p class="message">Cette page n'existe pas ou a été déplacée.</p>
+    <a class="back" href="/">← Retour à l'accueil</a>
+  </body>
+</html>
