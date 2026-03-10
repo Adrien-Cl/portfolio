@@ -107,6 +107,6 @@ export const fr = {
     location: "Rennes • Full Remote",
     copyright: "© 2026 — Étudiant BTS SIO SLAM",
   },
-} as const;
+};
 
 export type Fr = typeof fr;
