@@ -1,4 +1,4 @@
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLang } from "../context/LanguageContext";
 import { PERSONAL } from "../config/personal";
@@ -43,18 +43,23 @@ export const Hero = () => {
           initial="hidden"
           animate="visible"
           className="mt-10 flex flex-wrap gap-4">
-          <a
+          <motion.button
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
+            className="flex items-center gap-3 bg-blue-600 dark:bg-white text-white dark:text-black font-black uppercase text-sm tracking-widest px-8 py-4 hover:bg-black dark:hover:bg-blue-600 dark:hover:text-white transition-colors duration-300">
+            {t.hero.seeProjects}
+            <ArrowRight size={16} />
+          </motion.button>
+          <motion.a
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
             href={PERSONAL.cvPath}
             download
-            className="flex items-center gap-2 bg-black dark:bg-white text-white dark:text-black font-black uppercase text-xs tracking-widest px-6 py-3 hover:bg-blue-600 dark:hover:bg-blue-600 dark:hover:text-white transition-colors duration-300">
-            <ArrowDown size={14} />
+            className="flex items-center gap-3 border-2 border-black dark:border-white font-black uppercase text-sm tracking-widest px-8 py-4 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-300">
+            <ArrowDown size={16} />
             {t.hero.downloadCV}
-          </a>
-          <a
-            href="#projects"
-            className="flex items-center gap-2 border-2 border-black dark:border-white font-black uppercase text-xs tracking-widest px-6 py-3 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-300">
-            {t.hero.seeProjects}
-          </a>
+          </motion.a>
         </motion.div>
       </div>
 

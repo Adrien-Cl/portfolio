@@ -30,16 +30,31 @@ export const fr = {
         title: "Portfolio Personnel",
         category: "Web Design & Développement",
         desc: "Développement d'un portfolio personnel pour présenter mes compétences, expériences et projets réalisés en tant que développeur web.",
+        longDesc: [
+          "Conçu de A à Z avec React, TypeScript et Framer Motion, ce portfolio reflète mon approche du design : typographique, minimaliste et animé.",
+          "Il intègre un système d'internationalisation FR/EN avec traduction automatisée, un mode sombre/clair, des animations au scroll et une architecture modulaire facilement extensible.",
+          "Le SEO a été travaillé avec des balises Open Graph, un schéma JSON-LD Person et un sitemap généré statiquement.",
+        ],
       },
       {
         title: "SkillSkyDrone",
         category: "Web Design & Développement",
         desc: "Création d'un site vitrine pour des passionnés de drone, mettant en avant leurs services avec un design moderne et minimaliste.",
+        longDesc: [
+          "Développement d'un site vitrine WordPress sur-mesure pour une entreprise spécialisée dans les services par drone (photographie aérienne, inspection, cartographie).",
+          "Le design adopte une esthétique sobre et professionnelle, avec une navigation fluide et une mise en avant claire des différentes prestations proposées.",
+          "Le site est optimisé pour le référencement local et les performances de chargement afin de maximiser la visibilité auprès des clients potentiels.",
+        ],
       },
       {
         title: "Refonte Rennes Aqua Center",
         category: "Web Design & Développement",
         desc: "Modernisation complète de l'interface utilisateur et optimisation du tunnel de conversion pour le site e-commerce.",
+        longDesc: [
+          "Refonte complète du site du Rennes Aqua Center, un complexe aquatique, avec pour objectif principal l'amélioration de l'expérience utilisateur et l'augmentation du taux de conversion.",
+          "Redesign de l'interface : hiérarchie visuelle repensée, parcours d'achat simplifié, mise en avant des offres et des horaires d'ouverture.",
+          "Le projet a impliqué une analyse de l'existant, des maquettes Figma et une intégration CMS avec des optimisations UX mesurables.",
+        ],
       },
     ],
   },

@@ -2,6 +2,8 @@
 
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
 html,
 body {
   scroll-behavior: smooth;
@@ -18,4 +20,9 @@ section[id] {
 
 body {
   font-family: var(--font-family-base);
+}
+
+:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
 }
