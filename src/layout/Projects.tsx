@@ -68,7 +68,7 @@ function ProjectModal({
             srcSet={`${meta.img} 1200w`}
             sizes="(max-width: 768px) 100vw, 896px"
             alt={project.title}
-            className="w-full max-h-[40vw] min-h-[180px] object-cover object-top"
+            className="w-full max-h-[40vw] min-h-45 object-cover object-top"
           />
         </div>
 
