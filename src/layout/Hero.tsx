@@ -33,7 +33,7 @@ export const Hero = () => {
           variants={item}
           initial="hidden"
           animate="visible"
-          className="mt-8 text-xl md:text-2xl font-bold uppercase tracking-widest border-2 border-black dark:border-white px-6 py-3 inline-block self-start">
+          className="mt-8 text-xl md:text-2xl font-bold uppercase tracking-widest px-6 py-3 inline-block self-start">
           {t.hero.role}
         </motion.p>
 
