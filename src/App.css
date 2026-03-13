@@ -11,7 +11,7 @@ body {
 
 /* Compense la hauteur de la navbar sticky */
 section[id] {
-  scroll-margin-top: 5rem;
+  scroll-margin-top: 4.5rem;
 }
 
 :root {
@@ -20,6 +20,8 @@ section[id] {
 
 body {
   font-family: var(--font-family-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 :focus-visible {
