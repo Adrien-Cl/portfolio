@@ -17,8 +17,8 @@ export const Hero = () => {
   const { t } = useLang();
 
   return (
-    <section className="min-h-[80vh] w-full p-10 md:p-20 flex flex-col md:flex-row items-center justify-between gap-10">
-      <div className="flex-1 flex flex-col">
+    <section className="w-full px-6 py-8 md:p-20 flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-10">
+      <div className="flex-1 w-full flex flex-col">
         <motion.h1
           custom={0.1}
           variants={item}
@@ -33,7 +33,7 @@ export const Hero = () => {
           variants={item}
           initial="hidden"
           animate="visible"
-          className="mt-8 text-xl md:text-2xl font-bold uppercase tracking-widest px-6 py-3 inline-block self-start">
+          className="mt-4 md:mt-8 text-lg md:text-2xl font-bold uppercase tracking-widest px-6 py-3 inline-block self-start">
           {t.hero.role}
         </motion.p>
 
@@ -42,7 +42,7 @@ export const Hero = () => {
           variants={item}
           initial="hidden"
           animate="visible"
-          className="mt-10 flex flex-wrap gap-4">
+          className="mt-5 md:mt-10 flex flex-wrap gap-4">
           <motion.button
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
@@ -68,12 +68,12 @@ export const Hero = () => {
         variants={item}
         initial="hidden"
         animate="visible"
-        className="flex-1 flex justify-end">
-        <div className="max-w-xl border-l-4 border-black pl-12">
-          <p className="text-xs font-black uppercase mb-6 tracking-[0.4em] text-gray-400 italic">
+        className="flex-1 w-full flex md:justify-end">
+        <div className="max-w-xl border-l-4 border-black dark:border-white pl-6 md:pl-12">
+          <p className="text-xs font-black uppercase mb-4 tracking-[0.4em] text-gray-400 italic">
             {t.hero.objectiveLabel}
           </p>
-          <p className="text-4xl font-medium leading-tight">
+          <p className="text-2xl md:text-4xl font-medium leading-tight">
             "{t.hero.objective}"
           </p>
         </div>

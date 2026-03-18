@@ -148,7 +148,7 @@ export const Projects = () => {
         💻 {t.projects.sectionTitle}
       </motion.h2>
 
-      <div className="flex flex-col gap-32">
+      <div className="flex flex-col gap-20 md:gap-32">
         {t.projects.items.map((project, i) => {
           const meta = PROJECTS_META[i];
           return (
@@ -158,8 +158,8 @@ export const Projects = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.8, ease }}
-              className="group flex flex-col md:flex-row gap-16 items-center">
-              <div className="flex-1 space-y-8">
+              className="group flex flex-col md:flex-row gap-8 md:gap-16 items-center">
+              <div className="flex-1 space-y-6 md:space-y-8">
                 <div className="space-y-2">
                   <motion.span
                     initial={{ opacity: 0 }}
@@ -171,13 +171,13 @@ export const Projects = () => {
                   </motion.span>
                   <h3
                     onClick={() => setSelected(i)}
-                    className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none flex items-center gap-4 cursor-pointer">
+                    className="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-none flex items-center gap-3 cursor-pointer">
                     <span className="inline-block group-hover:-translate-y-1 transition-transform duration-500">
                       {project.title}
                     </span>
                     <ArrowUpRight
                       className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-500"
-                      size={40}
+                      size={32}
                     />
                   </h3>
                 </div>

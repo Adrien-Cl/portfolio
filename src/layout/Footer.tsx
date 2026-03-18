@@ -35,7 +35,7 @@ export const Footer = ({ isDark }: FooterProps) => {
           </div>
         </div>
 
-        <div className="flex flex-col justify-between items-end text-right">
+        <div className="flex flex-col justify-between items-start md:items-end text-left md:text-right">
           <div className="text-sm font-black uppercase tracking-[0.3em] opacity-50">
             {t.footer.location}
           </div>

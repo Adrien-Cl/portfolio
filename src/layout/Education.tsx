@@ -30,7 +30,7 @@ export const Education = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.7, delay: i * 0.1, ease }}
-            className="group grid md:grid-cols-12 gap-8 py-12 border-b-2 border-black/5 dark:border-white/5 last:border-none items-center">
+            className="group grid md:grid-cols-12 gap-6 md:gap-8 py-10 md:py-12 border-b-2 border-black/5 dark:border-white/5 last:border-none items-start md:items-center">
 
             {/* Années (2/12) */}
             <div className="md:col-span-2">
@@ -40,8 +40,8 @@ export const Education = () => {
             </div>
 
             {/* Logo + Titre & École (6/12) */}
-            <div className="md:col-span-6 flex items-start gap-6">
-              <div className="shrink-0 w-16 h-16 border-2 border-black/10 dark:border-white/10 p-2 bg-white flex items-center justify-center overflow-hidden">
+            <div className="md:col-span-6 flex items-start gap-4 md:gap-6">
+              <div className="shrink-0 w-14 h-14 md:w-16 md:h-16 border-2 border-black/10 dark:border-white/10 p-2 bg-white flex items-center justify-center overflow-hidden">
                 <img
                   src={EDUCATION_LOGOS[i]}
                   alt={edu.school}
@@ -49,12 +49,12 @@ export const Education = () => {
                   className="max-w-full max-h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-500"
                 />
               </div>
-              <div className="space-y-3">
+              <div className="space-y-2 md:space-y-3">
                 <div>
-                  <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tighter leading-none group-hover:text-blue-600 transition-colors duration-300">
+                  <h3 className="text-xl md:text-3xl font-black uppercase tracking-tighter leading-none group-hover:text-blue-600 transition-colors duration-300">
                     {edu.title}
                   </h3>
-                  <p className="text-lg font-bold uppercase mt-1 opacity-80 italic">
+                  <p className="text-base font-bold uppercase mt-1 opacity-80 italic">
                     {edu.school}
                   </p>
                 </div>
@@ -65,7 +65,7 @@ export const Education = () => {
             </div>
 
             {/* Modules principaux (4/12) */}
-            <div className="md:col-span-4 flex flex-col gap-4 border-l-2 border-black/5 dark:border-white/5 md:pl-8">
+            <div className="md:col-span-4 flex flex-col gap-4 border-l-2 border-black/5 dark:border-white/5 pl-4 ml-4 md:pl-8 md:ml-0">
               <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30">
                 {t.education.modulesLabel}
               </span>
