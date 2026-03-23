@@ -32,9 +32,7 @@ export function About() {
             <p className="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
               {ABOUT.bio}
             </p>
-            <blockquote className="border-l-2 border-blue-600 pl-4 italic text-zinc-500 dark:text-zinc-500 text-sm leading-relaxed">
-              "{ABOUT.manifeste}"
-            </blockquote>
+
             <a
               href={PERSONAL.cvPath}
               download

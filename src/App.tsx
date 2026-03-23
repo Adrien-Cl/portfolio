@@ -8,6 +8,7 @@ import { About } from "./sections/About";
 import { Parcours } from "./sections/Parcours";
 import { Projects } from "./sections/Projects";
 import { Skills } from "./sections/Skills";
+import { SyntheseTable } from "./sections/SyntheseTable";
 import { Veille } from "./sections/Veille";
 import { Contact } from "./sections/Contact";
 
@@ -21,7 +22,7 @@ function App() {
 
       {/* Barre de progression */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-0.5 z-[100] origin-left bg-blue-600"
+        className="fixed top-0 left-0 right-0 h-0.5 z-100 origin-left bg-blue-600"
         style={{ scaleX }}
       />
 
@@ -37,6 +38,7 @@ function App() {
         <Parcours />
         <Projects />
         <Skills />
+        <SyntheseTable />
         <Veille />
         <Contact />
       </motion.main>

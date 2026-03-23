@@ -20,8 +20,6 @@ export const ABOUT = {
   intro:
     "Je suis Adrien Clavreul, étudiant en BTS SIO Option SLAM à l'AFTEC Rennes, actuellement en alternance au CNFPT (Centre National de la Fonction Publique Territoriale).",
   bio: "Passionné par le développement web et le design d'interface, j'ai suivi un Bachelor Chef de Projet Digital avant de me spécialiser en développement applicatif. Je crois que la qualité technique et le soin du détail visuel se renforcent mutuellement.",
-  manifeste:
-    "Le développement web, c'est l'art de transformer une idée en expérience. Ce qui me passionne, c'est la frontière entre design et code : créer des interfaces qui ne sont pas seulement fonctionnelles, mais qui racontent quelque chose.",
   bts: {
     label: "Le BTS SIO SLAM",
     desc: "Le BTS SIO (Services Informatiques aux Organisations) Option SLAM (Solutions Logicielles et Applications Métiers) est une formation de niveau bac+2 qui forme aux métiers du développement d'applications, de la gestion de bases de données et de la cybersécurité.",
