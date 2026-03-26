@@ -1,57 +1,59 @@
-# ⚡ Adrien Clavreul — Portfolio 2025
+# Adrien Clavreul — Portfolio BTS SIO
 
-> **Développeur Web | Étudiant BTS SIO SLAM** > Une vitrine numérique axée sur la performance, la typographie XL et le design brutaliste.
+Portfolio professionnel développé dans le cadre du BTS SIO option SLAM, présentant mes réalisations, compétences et veille technologique.
 
----
-
-### ✨ Fonctionnalités Clés
-
-- **Brutalist UX** : Un design épuré utilisant des bordures franches, des contrastes élevés et une grille flexible.
-- **Custom Motion Loader** : Une expérience d'entrée dynamique avec compteur en temps réel et transition "rideau" asymétrique.
-- **Smart Dark Mode** : Un basculement de thème natif qui adapte dynamiquement les bordures, les opacités et la colorimétrie des icônes.
-- **Infinite Tech Slider** : Un défilement horizontal infini géré par Framer Motion pour présenter la stack technique.
-- **Scroll Intelligence** : Barre de progression de lecture synchronisée avec le défilement et remise à zéro automatique post-chargement.
+🔗 **[Voir le site](https://adrien-cl.github.io/portfolio/)**
 
 ---
 
-## 🛠️ Stack Technique
-
-### Core & Framework
+## Stack technique
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-
-### Design & Animations
-
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)
-![Lucide Icons](https://img.shields.io/badge/Lucide_Icons-222?style=for-the-badge&logo=lucide&logoColor=white)
 
 ---
 
-## 📁 Architecture du Projet
-
-Le projet suit une structure atomique simplifiée pour une maintenance efficace :
+## Structure du projet
 
 ```text
 src/
-├── components/   # Composants logiques (Navbar, Loader, Slider)
-├── layout/       # Sections visuelles (Hero, Experience, Projects...)
-├── assets/       # Ressources médias et images
-└── App.tsx       # Gestionnaire d'état (Dark Mode, Scroll, AnimatePresence)
+├── components/     # Navbar, Footer
+├── sections/       # Hero, About, Parcours, Projects, Skills, Veille, Contact, SyntheseTable
+├── data/
+│   ├── index.ts    # Données du portfolio (infos, projets, compétences...)
+│   └── synthese.ts # Données du tableau de synthèse BTS (Annexe 8-1)
+└── App.tsx
+
+scripts/
+└── fill-excel.ts   # Génère le tableau de synthèse Excel à partir de synthese.ts
+
+public/
+└── template-bts.xlsx  # Template officiel BTS SIO E5
 ```
 
-## ⚙️ Installation & Usage
+---
 
-1. **Clonage du dépôt**
-
-```bash
-git clone [https://github.com/Adrien-Cl/portfolio.git](https://github.com/Adrien-Cl/portfolio.git)
-```
-
-2. **Installation des dépendances**
+## Installation
 
 ```bash
+git clone https://github.com/Adrien-Cl/portfolio.git
+cd portfolio
+git checkout BTS
 npm install
+npm run dev
 ```
+
+## Générer le tableau de synthèse Excel
+
+```bash
+npx tsx scripts/fill-excel.ts
+```
+
+---
+
+## Déploiement
+
+Le site est déployé automatiquement sur GitHub Pages à chaque push sur la branche `BTS` via GitHub Actions.
