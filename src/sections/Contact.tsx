@@ -91,7 +91,7 @@ export function Contact() {
                   <Send size={20} className="text-green-600" />
                 </div>
                 <p className="font-semibold text-zinc-900 dark:text-zinc-100">Message envoyé !</p>
-                <p className="text-sm text-zinc-500 text-center">Votre client mail s'est ouvert. Je vous répondrai dans les plus brefs délais.</p>
+                <p className="text-sm text-zinc-500 text-center">Votre mail s'est bien envoyé. Je vous répondrai dans les plus brefs délais.</p>
                 <button onClick={() => setSent(false)} className="text-sm text-blue-600 hover:underline mt-1">
                   Envoyer un autre message
                 </button>
