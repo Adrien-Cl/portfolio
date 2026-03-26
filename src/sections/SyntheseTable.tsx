@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Download, CheckCircle2, Circle } from "lucide-react";
 import { SYNTHESE, COMPETENCES, SYNTHESE_INFO } from "../data/synthese";
 import type { CompetenceCode } from "../data/synthese";
+import { asset } from "../utils/asset";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -37,8 +38,7 @@ function CompetenceCheck({ checked }: { checked: boolean }) {
 }
 
 export function SyntheseTable() {
-  const excelPath =
-    "/8-1 - BTS SIO - 2025 - Annexe 8-1 - Epreuve E5 - Tableau de synthèse - Adrien Clavreul.xlsx";
+  const excelPath = asset("/tableau-synthese-bts-adrien-clavreul.xlsx");
 
   return (
     <section id="synthese" className="px-6 py-20">

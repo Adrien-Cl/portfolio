@@ -12,8 +12,7 @@ import ExcelJS from "exceljs";
 import { SYNTHESE, COMPETENCES, SYNTHESE_INFO } from "../src/data/synthese";
 
 const TEMPLATE_PATH = "public/template-bts.xlsx";
-const OUTPUT_PATH   =
-  "public/8-1 - BTS SIO - 2025 - Annexe 8-1 - Epreuve E5 - Tableau de synthèse - Adrien Clavreul.xlsx";
+const OUTPUT_PATH = "public/tableau-synthese-bts-adrien-clavreul.xlsx";
 
 // Bordures telles qu'elles sont dans le template (noir, pas de couleur)
 const thin   = (): Partial<ExcelJS.Border> => ({ style: "thin" });
