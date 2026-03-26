@@ -73,7 +73,7 @@ export function Veille() {
           </motion.p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {VEILLE.otherTopics.map((item, i) => (
-              <motion.div
+        <motion.div
                 key={i}
                 variants={fadeUp}
                 custom={i + 6}

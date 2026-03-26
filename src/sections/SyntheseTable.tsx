@@ -38,7 +38,7 @@ function CompetenceCheck({ checked }: { checked: boolean }) {
 
 export function SyntheseTable() {
   const excelPath =
-    "/8-1 - BTS SIO - 2025 - Annexe 8-1 - Epreuve E5 - Tableau de synthèse.xlsx";
+    "/8-1 - BTS SIO - 2025 - Annexe 8-1 - Epreuve E5 - Tableau de synthèse - Adrien Clavreul.xlsx";
 
   return (
     <section id="synthese" className="px-6 py-20">

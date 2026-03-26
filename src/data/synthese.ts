@@ -2,6 +2,7 @@
 
 export const SYNTHESE_INFO = {
   nom: "Clavreul Adrien",
+  numeroCandidat: "060815622JA",
   centre: "AFTEC Rennes",
   option: "SLAM",
   portfolio: "https://adrien-clavreul.fr",
@@ -113,6 +114,23 @@ export const SYNTHESE: SectionSynthese[] = [
           "Base de données MariaDB",
         ],
         periode: "09/25 → 06/26",
+        competences: {
+          C1: true,
+          C2: true,
+          C3: false,
+          C4: true,
+          C5: true,
+          C6: false,
+        },
+      },
+      {
+        title: "VM windows serveur et gestion de parc informatique",
+        docs: [
+          "Configaration de machines virtuelles Windows Server",
+          "Configuration de services réseau (DNS, DHCP, Active Directory)",
+          "Installation et configuration d'une solution GLPI",
+        ],
+        periode: "09/25 → 07/26",
         competences: {
           C1: true,
           C2: true,

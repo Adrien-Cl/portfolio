@@ -13,17 +13,21 @@ const fadeUp = {
 
 export function Contact() {
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setLoading(true);
     const form = e.currentTarget;
     const data = new FormData(form);
-    const subject = encodeURIComponent(data.get("subject") as string || "Contact Portfolio");
-    const body = encodeURIComponent(
-      `Nom : ${data.get("name")}\n\n${data.get("message")}`
-    );
-    window.location.href = `mailto:${PERSONAL.email}?subject=${subject}&body=${body}`;
+    await fetch("https://formspree.io/f/xvzvgozk", {
+      method: "POST",
+      body: data,
+      headers: { Accept: "application/json" },
+    });
+    setLoading(false);
     setSent(true);
+    form.reset();
   }
 
   return (
@@ -138,9 +142,10 @@ export function Contact() {
                 </div>
                 <button
                   type="submit"
-                  className="justify-center inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors w-full">
+                  disabled={loading}
+                  className="justify-center inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors w-full">
                   <Send size={14} />
-                  Envoyer
+                  {loading ? "Envoi…" : "Envoyer"}
                 </button>
               </form>
             )}

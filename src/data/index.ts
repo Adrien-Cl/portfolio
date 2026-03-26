@@ -27,7 +27,6 @@ export const ABOUT = {
   roles: [
     "Développeur d'applications informatiques",
     "Développeur Full Stack",
-    "Analyste-développeur",
     "Intégrateur web",
   ],
   competences: {
@@ -97,15 +96,6 @@ export const PARCOURS: {
     livrables: ["Bilans de caisse", "Gestion des stocks fleuriste"],
   },
   {
-    type: "formation",
-    title: "Bachelor Chef de Projet Digital",
-    organization: "Digital Campus Rennes",
-    date: "2020 — 2023",
-    desc: "Spécialisation en développement web, design et stratégie digitale.",
-    details: ["Design Graphique & UI", "Gestion de projet Agile", "Stratégie de communication"],
-    logo: "https://www.digital-campus.fr/sites/all/themes/digital_campus/img/logos/logo-digital-campus-dark.svg",
-  },
-  {
     type: "experience",
     title: "Alternance — Communication Digitale & Développement Web",
     organization: "Rennes Aqua Center",
@@ -125,6 +115,15 @@ export const PARCOURS: {
   },
   {
     type: "formation",
+    title: "Bachelor Chef de Projet Digital",
+    organization: "Digital Campus Rennes",
+    date: "2020 — 2023",
+    desc: "Spécialisation en développement web, design et stratégie digitale.",
+    details: ["Design Graphique & UI", "Gestion de projet Agile", "Stratégie de communication"],
+    logo: "https://www.digital-campus.fr/sites/all/themes/digital_campus/img/logos/logo-digital-campus-dark.svg",
+  },
+  {
+    type: "formation",
     title: "Baccalauréat Général",
     organization: "Lycée Julliot de la Morandière",
     date: "2020",
@@ -136,7 +135,7 @@ export const PARCOURS: {
 
 // ─── Projets ──────────────────────────────────────────────────────────────────
 
-export type ProjectFilter = "dev" | "software" | "communication";
+export type ProjectFilter = "dev" | "software" | "communication" | "infra";
 
 export const PROJECTS: {
   title: string;
@@ -154,10 +153,10 @@ export const PROJECTS: {
   link?: string;
 }[] = [
   {
-    title: "Portfolio Personnel",
+    title: "Portfolio Professionnel",
     category: "Développement Web",
     filter: "dev",
-    desc: "Développement d'un portfolio personnel avec React, TypeScript et Framer Motion pour présenter mes compétences et réalisations.",
+    desc: "Développement d'un portfolio professionnel avec React, TypeScript et Framer Motion pour présenter mes compétences et réalisations.",
     brief:
       "Créer un portfolio en ligne qui reflète mon identité de développeur web et UI/UX, utilisable comme carte de visite professionnelle pour les recruteurs et clients.",
     demarche: [
@@ -173,6 +172,7 @@ export const PROJECTS: {
     tech: ["React", "TypeScript", "Framer Motion", "Tailwind CSS"],
     img: "/media/portfolio-hero.png",
     github: "https://github.com/Adrien-Cl/portfolio",
+    link: "https://adrienclavreul.fr",
   },
   {
     title: "SkillSkyDrone",
@@ -237,6 +237,27 @@ export const PROJECTS: {
     img: "/media/rennesaquacenter-hero.png",
     link: "https://rennesaquacenter.fr",
   },
+  {
+    title: "Gestion de Parc Informatique et ticketing — GLPI",
+    category: "Infrastructure & Réseau",
+    filter: "infra",
+    desc: "Mise en place d'une infrastructure virtualisée sous VMware avec Windows Server (AD, DHCP, DNS), un poste client joint au domaine et un serveur Ubuntu hébergeant GLPI pour la gestion de parc et de tickets.",
+    brief:
+      "Déployer une infrastructure réseau complète en environnement virtualisé pour gérer un parc informatique : serveur Windows avec les rôles AD/DHCP/DNS, remontée automatique des postes via GPO et authentification centralisée LDAP dans GLPI.",
+    demarche: [
+      "Création des machines virtuelles sous VMware : Windows Server, poste client Windows et serveur Ubuntu.",
+      "Configuration de Windows Server : installation et paramétrage des rôles Active Directory, DHCP et DNS.",
+      "Jonction du poste client au domaine et mise en place des GPO pour la remontée automatique des inventaires dans GLPI.",
+      "Installation d'Apache2, MySQL et GLPI sur Ubuntu ; configuration de l'authentification LDAP pour permettre aux utilisateurs de se connecter avec leurs identifiants de domaine.",
+    ],
+    realisation:
+      "Infrastructure entièrement virtualisée sous VMware. Windows Server assure l'annuaire AD, la distribution d'adresses DHCP et la résolution DNS. Les machines remontent automatiquement dans GLPI grâce aux GPO. Le serveur Ubuntu expose GLPI via Apache2 et les utilisateurs s'authentifient via LDAP sans compte supplémentaire.",
+    autocritique:
+      "Ce projet m'a donné une vision concrète de l'administration système et réseau. J'aurais aimé aller plus loin en mettant en place des snapshots de sauvegarde automatiques et en sécurisant davantage les échanges LDAP avec TLS.",
+    tech: ["VMware", "Windows Server", "Active Directory", "Ubuntu", "Apache2", "GLPI", "LDAP"],
+    img: "/media/glpi.png",
+    imageFrame: true,
+  },
 ];
 
 // ─── Compétences ─────────────────────────────────────────────────────────────
@@ -268,53 +289,55 @@ export const VEILLE = {
     "Dans le cadre de ma veille technologique, je me suis intéressé à l'impact croissant de l'intelligence artificielle sur les pratiques du développement web. Cette transformation touche à la fois les outils du développeur et la façon dont sont conçues les applications.",
   subtopics: [
     {
-      title: "Qu'est-ce que l'IA générative pour les développeurs ?",
+      title: "Des outils qui changent la façon de coder",
       content:
-        "L'IA générative désigne des modèles capables de produire du texte, du code ou des images à partir d'une instruction. Des outils comme GitHub Copilot, ChatGPT ou Claude s'intègrent directement dans l'environnement de travail du développeur pour suggérer du code, corriger des bugs et générer de la documentation automatiquement.",
+        "Des outils comme GitHub Copilot ou ChatGPT permettent de générer du code, corriger des bugs ou expliquer une fonction en quelques secondes. Grafikart et Benjamin Code en parlent régulièrement sur YouTube et montrent concrètement comment les intégrer dans un workflow de dev.",
       sources: [
-        { label: "GitHub — State of Copilot 2024", url: "#" },
-        { label: "StackOverflow Developer Survey 2024", url: "#" },
+        { label: "Grafikart", url: "https://grafikart.fr" },
+        { label: "Benjamin Code", url: "https://www.youtube.com/@BenjaminCode" },
       ],
     },
     {
-      title: "L'IA va-t-elle remplacer les développeurs ?",
+      title: "Un outil, pas un remplaçant",
       content:
-        "Si l'IA automatise les tâches répétitives (boilerplate, tests unitaires, documentation), elle ne remplace pas la réflexion architecturale, la compréhension du besoin métier ni la capacité à résoudre des problèmes complexes. Elle amplifie la productivité des développeurs qui savent l'utiliser, sans en éliminer la nécessité.",
+        "L'IA accélère les tâches répétitives mais ne remplace pas la réflexion : comprendre un besoin, concevoir une architecture ou déboguer un problème complexe restent des compétences humaines. Elle est surtout utile quand on sait déjà ce qu'on veut faire.",
       sources: [
-        { label: "Gartner — Technology Predictions 2025", url: "#" },
-        { label: "McKinsey — The future of software development", url: "#" },
+        { label: "Benjamin Code — L'IA va-t-elle tuer les devs ?", url: "https://www.youtube.com/@BenjaminCode" },
       ],
     },
     {
-      title: "Comment intégrer l'IA dans son workflow ?",
+      title: "Comment je l'utilise",
       content:
-        "Les développeurs adoptent l'IA à plusieurs niveaux : autocomplétion de code (Copilot), génération de tests (Codium), review automatisée (CodeRabbit) et documentation vivante. La clé est de maintenir un regard critique sur les suggestions générées et de comprendre le code produit avant de l'intégrer.",
+        "Au quotidien, je m'en sers pour générer des bases de code, débloquer des erreurs ou aller plus vite sur la documentation. Je vérifie toujours ce qui est produit avant de l'intégrer — c'est un assistant, pas un pilote automatique.",
       sources: [
-        { label: "OpenAI — Developer best practices", url: "#" },
-        { label: "CSS-Tricks — AI-assisted coding in 2024", url: "#" },
+        { label: "Grafikart — Tutoriels IA & dev", url: "https://grafikart.fr" },
       ],
     },
   ],
   otherTopics: [
     {
+      nom: "Grafikart",
+      type: "YouTube / Blog",
+      desc: "Tutoriels francophones de qualité sur le développement web : PHP, JavaScript, frameworks et bonnes pratiques.",
+      url: "https://grafikart.fr",
+    },
+    {
+      nom: "Benjamin Code",
+      type: "YouTube",
+      desc: "Chaîne française sur le développement web moderne, les outils du quotidien et les tendances front-end.",
+      url: "https://www.youtube.com/@BenjaminCode",
+    },
+    {
+      nom: "Basti UI",
+      type: "YouTube",
+      desc: "Vidéos sur le design UI/UX, Figma et les tendances visuelles du web. Idéal pour allier dev et design.",
+      url: "https://www.youtube.com/@BastiUI",
+    },
+    {
       nom: "Awwwards",
       type: "Inspiration Web Design",
-      desc: "Référence mondiale pour découvrir les tendances créatives et les sites les plus innovants.",
-    },
-    {
-      nom: "CSS-Tricks / Smashing Magazine",
-      type: "Blog technique",
-      desc: "Articles approfondis sur les dernières techniques CSS, accessibilité et bonnes pratiques frontend.",
-    },
-    {
-      nom: "Syntax.fm",
-      type: "Podcast",
-      desc: "Podcast de référence sur le développement web full stack (Wes Bos & Scott Tolinski).",
-    },
-    {
-      nom: "GitHub Trending",
-      type: "Outil de veille",
-      desc: "Suivi quotidien des projets open-source populaires pour rester à jour sur l'écosystème.",
+      desc: "Référence mondiale pour découvrir les tendances créatives et les réalisations web les plus innovantes.",
+      url: "https://www.awwwards.com/",
     },
   ],
 } as const;

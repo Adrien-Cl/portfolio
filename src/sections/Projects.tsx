@@ -8,6 +8,7 @@ const FILTERS: { label: string; value: "all" | ProjectFilter }[] = [
   { label: "Développement Web", value: "dev" },
   { label: "Développement Logiciel", value: "software" },
   { label: "Communication Digitale", value: "communication" },
+  { label: "Infrastructure & Réseau", value: "infra" },
 ];
 
 const fadeUp = {
