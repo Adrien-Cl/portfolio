@@ -5,7 +5,7 @@ export const SYNTHESE_INFO = {
   numeroCandidat: "060815622JA",
   centre: "AFTEC Rennes",
   option: "SLAM",
-  portfolio: "https://adrien-clavreul.fr",
+  portfolio: "https://adrien-cl.github.io/portfolio/",
   session: "2027",
 } as const;
 
