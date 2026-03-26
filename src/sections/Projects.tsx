@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { ArrowUpRight, ExternalLink, Github, X } from "lucide-react";
 import { PROJECTS, type ProjectFilter } from "../data";
+import { asset } from "../utils/asset";
 
 const FILTERS: { label: string; value: "all" | ProjectFilter }[] = [
   { label: "Tous", value: "all" },
@@ -93,7 +94,7 @@ function Modal({ project, onClose }: { project: typeof PROJECTS[number]; onClose
         {/* Image pleine largeur */}
         <div className="w-full h-52 md:h-72 overflow-hidden bg-zinc-100 dark:bg-zinc-800">
           <img
-            src={project.img}
+            src={asset(project.img)}
             alt={project.title}
             className="w-full h-full object-cover object-top"
           />
@@ -244,7 +245,7 @@ export function Projects() {
                 className="group bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800/50 rounded-xl overflow-hidden cursor-pointer hover:border-zinc-300 dark:hover:border-zinc-600 hover:shadow-md transition-all duration-300">
                 <div className="aspect-video overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                   <img
-                    src={project.img}
+                    src={asset(project.img)}
                     alt={project.title}
                     loading="lazy"
                     className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"

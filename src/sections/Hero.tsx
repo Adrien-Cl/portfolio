@@ -3,6 +3,7 @@ import { ArrowDown, MapPin, GraduationCap, Linkedin } from "lucide-react";
 import { SiGithub } from "@icons-pack/react-simple-icons";
 import { useEffect, useState } from "react";
 import { PERSONAL, ABOUT } from "../data";
+import { asset } from "../utils/asset";
 
 const ROLES = ABOUT.roles;
 
@@ -121,7 +122,7 @@ export function Hero() {
             className="flex flex-wrap gap-3"
           >
             <a
-              href={PERSONAL.cvPath}
+              href={asset(PERSONAL.cvPath)}
               download
               className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors shadow-sm shadow-blue-600/20"
             >
@@ -194,7 +195,7 @@ export function Hero() {
           <div className="p-0.75 rounded-3xl bg-linear-to-br from-blue-500 via-blue-400 to-indigo-500 shadow-2xl shadow-blue-600/20 dark:shadow-blue-600/30">
             <div className="w-80 h-80 md:w-104 md:h-104 rounded-[22px] overflow-hidden">
               <img
-                src={PERSONAL.photo}
+                src={asset(PERSONAL.photo)}
                 alt={PERSONAL.name}
                 className="w-full h-full object-cover object-[50%_30%]"
                 onError={(e) => {

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { ABOUT, PERSONAL } from "../data";
+import { asset } from "../utils/asset";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -34,7 +35,7 @@ export function About() {
             </p>
 
             <a
-              href={PERSONAL.cvPath}
+              href={asset(PERSONAL.cvPath)}
               download
               className="self-start inline-flex items-center gap-2 border border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 text-zinc-700 dark:text-zinc-300 text-sm font-medium px-4 py-2 rounded-lg transition-colors">
               <ArrowDown size={14} />
