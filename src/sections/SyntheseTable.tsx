@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { motion } from "framer-motion";
-import { Download, CheckCircle2, Circle } from "lucide-react";
+import { Download, CheckCircle2, Circle, ArrowUpRight } from "lucide-react";
 import { SYNTHESE, COMPETENCES, SYNTHESE_INFO } from "../data/synthese";
 import type { CompetenceCode } from "../data/synthese";
 import { asset } from "../utils/asset";
@@ -37,7 +37,11 @@ function CompetenceCheck({ checked }: { checked: boolean }) {
   );
 }
 
-export function SyntheseTable() {
+interface SyntheseTableProps {
+  onOpenProject?: (title: string) => void;
+}
+
+export function SyntheseTable({ onOpenProject }: SyntheseTableProps) {
   const excelPath = asset("/tableau-synthese-bts-adrien-clavreul.xlsx");
 
   return (
@@ -109,16 +113,16 @@ export function SyntheseTable() {
           <table className="w-full text-sm border-collapse">
             <thead>
               <tr className="bg-zinc-50 dark:bg-zinc-900/60 border-b border-zinc-200 dark:border-zinc-800">
-                <th className="text-left px-4 py-3 font-semibold text-zinc-700 dark:text-zinc-300 min-w-[280px]">
+                <th className="text-left px-4 py-3 font-semibold text-zinc-700 dark:text-zinc-300 min-w-70">
                   Réalisation professionnelle
                 </th>
-                <th className="text-left px-4 py-3 font-semibold text-zinc-700 dark:text-zinc-300 whitespace-nowrap min-w-[120px]">
+                <th className="text-left px-4 py-3 font-semibold text-zinc-700 dark:text-zinc-300 whitespace-nowrap min-w-30">
                   Période
                 </th>
                 {COMPETENCES.map((c) => (
                   <th
                     key={c.code}
-                    className="px-3 py-3 text-center font-bold text-blue-600 dark:text-blue-400 text-xs whitespace-nowrap min-w-[48px]"
+                    className="px-3 py-3 text-center font-bold text-blue-600 dark:text-blue-400 text-xs whitespace-nowrap min-w-12"
                     title={c.label}
                   >
                     {c.code}
@@ -165,6 +169,15 @@ export function SyntheseTable() {
                         <p className="font-medium text-zinc-900 dark:text-zinc-100 leading-snug">
                           {item.title}
                         </p>
+                        {item.projectTitle && onOpenProject && (
+                          <button
+                            onClick={() => onOpenProject(item.projectTitle!)}
+                            className="mt-1.5 inline-flex items-center gap-1 text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/40 hover:border-blue-400 dark:hover:border-blue-500 px-2 py-0.5 rounded transition-colors"
+                          >
+                            <ArrowUpRight size={11} />
+                            Voir le projet
+                          </button>
+                        )}
                         <ul className="mt-1 flex flex-col gap-0.5">
                           {item.docs.map((doc, di) => (
                             <li

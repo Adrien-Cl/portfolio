@@ -1,6 +1,9 @@
 // ─── Données centralisées du portfolio BTS SIO SLAM ─────────────────────────
 // Un seul fichier à modifier pour mettre à jour tout le contenu.
 
+export type { Project, ParcoursEntry } from "../types";
+import type { ParcoursEntry } from "../types";
+
 export const PERSONAL = {
   name: "Adrien Clavreul",
   email: "adrien.clavreul@gmail.com",
@@ -43,17 +46,7 @@ export const ABOUT = {
 
 export type ParcoursType = "formation" | "experience";
 
-export const PARCOURS: {
-  type: ParcoursType;
-  title: string;
-  organization: string;
-  date: string;
-  desc: string;
-  details: string[];
-  logo?: string;
-  responsabilites?: string[];
-  livrables?: string[];
-}[] = [
+export const PARCOURS: ParcoursEntry[] = [
   {
     type: "experience",
     title: "Alternance — Développeur Web & Support IT",
@@ -178,7 +171,7 @@ export const PROJECTS: {
     title: "SkillSkyDrone",
     category: "Développement Web",
     filter: "dev",
-    desc: "Site vitrine WordPress sur-mesure pour une entreprise de services par drone (photographie aérienne, inspection, cartographie).",
+    desc: "Site vitrine WordPress pour une entreprise de services par drone (photographie aérienne, inspection, cartographie).",
     brief:
       "Concevoir un site vitrine professionnel pour une entreprise de services par drone, avec un design qui inspire confiance et met en valeur les prestations.",
     demarche: [
@@ -188,7 +181,7 @@ export const PROJECTS: {
       "Maquettes Figma validées avec 2 révisions demandées par le client.",
     ],
     realisation:
-      "Site WordPress avec thème sur-mesure, CSS3 et JavaScript vanilla pour les animations. Plugin ACF pour la gestion des contenus dynamiques. Images optimisées en WebP avec lazy-loading.",
+      "Site WordPress, CSS3 et JavaScript vanilla pour les animations. Images optimisées en WebP avec lazy-loading.",
     autocritique:
       "Projet formateur sur la relation client : j'ai appris à cadrer les demandes de modification. Je referais le système d'images en utilisant un CDN dès le départ pour de meilleures performances.",
     tech: ["WordPress", "CSS3", "JavaScript"],

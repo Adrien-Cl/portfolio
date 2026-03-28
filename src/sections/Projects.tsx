@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { ArrowUpRight, ExternalLink, Github, X } from "lucide-react";
+import { ArrowUpRight, ExternalLink, Github, X, ImageOff } from "lucide-react";
 import { PROJECTS, type ProjectFilter } from "../data";
 import { asset } from "../utils/asset";
 
@@ -56,6 +56,8 @@ const BTS_STEPS = [
 ];
 
 function Modal({ project, onClose }: { project: typeof PROJECTS[number]; onClose: () => void }) {
+  const [imgError, setImgError] = useState(false);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     document.body.style.overflow = "hidden";
@@ -65,6 +67,8 @@ function Modal({ project, onClose }: { project: typeof PROJECTS[number]; onClose
       window.removeEventListener("keydown", onKey);
     };
   }, [onClose]);
+
+  const hasLinks = project.github || (project.link && project.link !== "#");
 
   return (
     <motion.div
@@ -92,12 +96,17 @@ function Modal({ project, onClose }: { project: typeof PROJECTS[number]; onClose
         </button>
 
         {/* Image pleine largeur */}
-        <div className="w-full h-52 md:h-72 overflow-hidden bg-zinc-100 dark:bg-zinc-800">
-          <img
-            src={asset(project.img)}
-            alt={project.title}
-            className="w-full h-full object-cover object-top"
-          />
+        <div className="w-full h-52 md:h-72 overflow-hidden bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center">
+          {imgError ? (
+            <ImageOff size={32} className="text-zinc-300 dark:text-zinc-600" />
+          ) : (
+            <img
+              src={asset(project.img)}
+              alt={project.title}
+              onError={() => setImgError(true)}
+              className="w-full h-full object-cover object-top"
+            />
+          )}
         </div>
 
         <div className="p-6 md:p-8 flex flex-col gap-8">
@@ -121,8 +130,8 @@ function Modal({ project, onClose }: { project: typeof PROJECTS[number]; onClose
               </div>
             </div>
 
-            {/* Liens */}
-            {(project.github || (project.link && project.link !== "#")) && (
+            {/* Liens ou note "privé" */}
+            {hasLinks ? (
               <div className="flex md:flex-col gap-2 shrink-0">
                 {project.github && (
                   <a href={project.github} target="_blank" rel="noopener noreferrer"
@@ -137,6 +146,10 @@ function Modal({ project, onClose }: { project: typeof PROJECTS[number]; onClose
                   </a>
                 )}
               </div>
+            ) : (
+              <p className="text-xs text-zinc-400 dark:text-zinc-500 italic shrink-0 self-start md:self-center max-w-40 md:text-right">
+                Code source privé / non disponible
+              </p>
             )}
           </div>
 
@@ -157,7 +170,6 @@ function Modal({ project, onClose }: { project: typeof PROJECTS[number]; onClose
                 <div
                   key={step.key}
                   className={`rounded-xl border p-5 flex flex-col gap-3 ${step.accent}`}>
-                  {/* En-tête de l'étape */}
                   <div className="flex items-center gap-2">
                     <span className={`text-xs font-black tabular-nums ${step.numColor}`}>
                       {step.num}
@@ -171,7 +183,6 @@ function Modal({ project, onClose }: { project: typeof PROJECTS[number]; onClose
                     </div>
                   </div>
 
-                  {/* Contenu */}
                   {Array.isArray(value) ? (
                     <ul className="flex flex-col gap-2">
                       {(value as string[]).map((s, i) => (
@@ -197,9 +208,60 @@ function Modal({ project, onClose }: { project: typeof PROJECTS[number]; onClose
   );
 }
 
-export function Projects() {
+function ProjectCard({ project, onClick }: { project: typeof PROJECTS[number]; onClick: () => void }) {
+  const [imgError, setImgError] = useState(false);
+
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, scale: 0.97 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.97 }}
+      transition={{ duration: 0.3 }}
+      onClick={onClick}
+      className="group bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800/50 rounded-xl overflow-hidden cursor-pointer hover:border-zinc-300 dark:hover:border-zinc-600 hover:shadow-md transition-all duration-300">
+      <div className="aspect-video overflow-hidden bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center">
+        {imgError ? (
+          <ImageOff size={24} className="text-zinc-300 dark:text-zinc-600" />
+        ) : (
+          <img
+            src={asset(project.img)}
+            alt={project.title}
+            loading="lazy"
+            onError={() => setImgError(true)}
+            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+          />
+        )}
+      </div>
+      <div className="p-5 flex flex-col gap-2.5">
+        <p className="text-xs font-semibold uppercase tracking-wider text-blue-600">{project.category}</p>
+        <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100 flex items-center gap-1 group-hover:text-blue-600 transition-colors">
+          {project.title}
+          <ArrowUpRight size={15} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+        </h3>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed line-clamp-2">{project.desc}</p>
+        <div className="flex flex-wrap gap-1.5 pt-1">
+          {project.tech.slice(0, 3).map(t => (
+            <span key={t} className="text-xs text-zinc-500 bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 px-2 py-0.5 rounded">
+              {t}
+            </span>
+          ))}
+          {project.tech.length > 3 && (
+            <span className="text-xs text-zinc-400 px-2 py-0.5">+{project.tech.length - 3}</span>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+interface ProjectsProps {
+  selected: number | null;
+  setSelected: (i: number | null) => void;
+}
+
+export function Projects({ selected, setSelected }: ProjectsProps) {
   const [filter, setFilter] = useState<"all" | ProjectFilter>("all");
-  const [selected, setSelected] = useState<number | null>(null);
 
   const filtered = filter === "all" ? PROJECTS : PROJECTS.filter(p => p.filter === filter);
 
@@ -233,43 +295,12 @@ export function Projects() {
         {/* Grille */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           <AnimatePresence mode="popLayout">
-            {filtered.map((project, i) => (
-              <motion.div
+            {filtered.map((project) => (
+              <ProjectCard
                 key={project.title}
-                layout
-                initial={{ opacity: 0, scale: 0.97 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.97 }}
-                transition={{ duration: 0.3, delay: i * 0.05 }}
+                project={project}
                 onClick={() => setSelected(PROJECTS.indexOf(project))}
-                className="group bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800/50 rounded-xl overflow-hidden cursor-pointer hover:border-zinc-300 dark:hover:border-zinc-600 hover:shadow-md transition-all duration-300">
-                <div className="aspect-video overflow-hidden bg-zinc-100 dark:bg-zinc-800">
-                  <img
-                    src={asset(project.img)}
-                    alt={project.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-5 flex flex-col gap-2.5">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-blue-600">{project.category}</p>
-                  <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100 flex items-center gap-1 group-hover:text-blue-600 transition-colors">
-                    {project.title}
-                    <ArrowUpRight size={15} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </h3>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed line-clamp-2">{project.desc}</p>
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {project.tech.slice(0, 3).map(t => (
-                      <span key={t} className="text-xs text-zinc-500 bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 px-2 py-0.5 rounded">
-                        {t}
-                      </span>
-                    ))}
-                    {project.tech.length > 3 && (
-                      <span className="text-xs text-zinc-400 px-2 py-0.5">+{project.tech.length - 3}</span>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
+              />
             ))}
           </AnimatePresence>
         </div>

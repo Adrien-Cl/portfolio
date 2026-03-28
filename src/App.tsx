@@ -1,8 +1,10 @@
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useState } from "react";
+import { flushSync } from "react-dom";
 import "./App.css";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
+import { BackToTop } from "./components/BackToTop";
 import { Hero } from "./sections/Hero";
 import { About } from "./sections/About";
 import { Parcours } from "./sections/Parcours";
@@ -11,11 +13,35 @@ import { Skills } from "./sections/Skills";
 import { SyntheseTable } from "./sections/SyntheseTable";
 import { Veille } from "./sections/Veille";
 import { Contact } from "./sections/Contact";
+import { PROJECTS } from "./data";
 
 function App() {
   const [isDark, setIsDark] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+
+  function handleToggleTheme(e: React.MouseEvent<HTMLButtonElement>) {
+    const { clientX: x, clientY: y } = e;
+    document.documentElement.style.setProperty("--toggle-x", `${x}px`);
+    document.documentElement.style.setProperty("--toggle-y", `${y}px`);
+
+    if (!document.startViewTransition) {
+      setIsDark(v => !v);
+      return;
+    }
+
+    document.startViewTransition(() => {
+      flushSync(() => setIsDark(v => !v));
+    });
+  }
+
+  function handleOpenProject(title: string) {
+    const idx = PROJECTS.findIndex(p => p.title === title);
+    if (idx === -1) return;
+    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+    setTimeout(() => setSelectedProject(idx), 300);
+  }
 
   return (
     <div className={`${isDark ? "dark" : ""} min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors duration-300 font-sans selection:bg-blue-600 selection:text-white`}>
@@ -26,7 +52,7 @@ function App() {
         style={{ scaleX }}
       />
 
-      <Navbar isDark={isDark} setIsDark={setIsDark} />
+      <Navbar isDark={isDark} onToggleTheme={handleToggleTheme} />
 
       <motion.main
         initial={{ opacity: 0 }}
@@ -36,14 +62,15 @@ function App() {
         <Hero />
         <About />
         <Parcours />
-        <Projects />
+        <Projects selected={selectedProject} setSelected={setSelectedProject} />
         <Skills />
-        <SyntheseTable />
+        <SyntheseTable onOpenProject={handleOpenProject} />
         <Veille />
         <Contact />
       </motion.main>
 
       <Footer />
+      <BackToTop />
     </div>
   );
 }

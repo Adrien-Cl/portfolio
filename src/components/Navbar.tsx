@@ -2,6 +2,7 @@ import { Moon, Sun, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PERSONAL } from "../data";
+import { useActiveSection } from "../utils/useActiveSection";
 
 const NAV_LINKS = [
   { label: "À Propos", id: "about" },
@@ -18,11 +19,12 @@ function scrollTo(id: string) {
 
 interface NavbarProps {
   isDark: boolean;
-  setIsDark: (v: boolean) => void;
+  onToggleTheme: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export function Navbar({ isDark, setIsDark }: NavbarProps) {
+export function Navbar({ isDark, onToggleTheme }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const activeSection = useActiveSection();
 
   return (
     <>
@@ -41,8 +43,18 @@ export function Navbar({ isDark, setIsDark }: NavbarProps) {
               <button
                 key={link.id}
                 onClick={() => scrollTo(link.id)}
-                className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
+                className={`relative text-sm pb-0.5 transition-colors ${
+                  activeSection === link.id
+                    ? "text-zinc-900 dark:text-zinc-100"
+                    : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
+                }`}>
                 {link.label}
+                {activeSection === link.id && (
+                  <motion.span
+                    layoutId="nav-underline"
+                    className="absolute bottom-0 left-0 right-0 h-px bg-blue-600"
+                  />
+                )}
               </button>
             ))}
           </nav>
@@ -50,7 +62,7 @@ export function Navbar({ isDark, setIsDark }: NavbarProps) {
           {/* Right */}
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setIsDark(!isDark)}
+              onClick={onToggleTheme}
               className="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all"
               aria-label="Changer de thème">
               {isDark ? <Sun size={16} /> : <Moon size={16} />}
@@ -79,7 +91,11 @@ export function Navbar({ isDark, setIsDark }: NavbarProps) {
               <button
                 key={link.id}
                 onClick={() => { scrollTo(link.id); setMenuOpen(false); }}
-                className="text-left py-2.5 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-500 transition-colors">
+                className={`text-left py-2.5 text-sm font-medium transition-colors ${
+                  activeSection === link.id
+                    ? "text-blue-600 dark:text-blue-500"
+                    : "text-zinc-600 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-500"
+                }`}>
                 {link.label}
               </button>
             ))}

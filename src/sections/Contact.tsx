@@ -14,20 +14,32 @@ const fadeUp = {
 export function Contact() {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
+    setError(false);
     const form = e.currentTarget;
     const data = new FormData(form);
-    await fetch("https://formspree.io/f/xvzvgozk", {
-      method: "POST",
-      body: data,
-      headers: { Accept: "application/json" },
-    });
-    setLoading(false);
-    setSent(true);
-    form.reset();
+    try {
+      const res = await fetch(`https://formspree.io/f/${import.meta.env.VITE_FORMSPREE_ID}`, {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+      if (!res.ok) {
+        setError(true);
+        setLoading(false);
+        return;
+      }
+      setLoading(false);
+      setSent(true);
+      form.reset();
+    } catch {
+      setError(true);
+      setLoading(false);
+    }
   }
 
   return (
@@ -147,6 +159,11 @@ export function Contact() {
                   <Send size={14} />
                   {loading ? "Envoi…" : "Envoyer"}
                 </button>
+                {error && (
+                  <p className="text-sm text-red-500 dark:text-red-400 text-center">
+                    Une erreur est survenue lors de l'envoi. Veuillez réessayer ou me contacter directement par email.
+                  </p>
+                )}
               </form>
             )}
           </motion.div>

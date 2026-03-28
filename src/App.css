@@ -28,3 +28,25 @@ body {
   outline: 2px solid #2563eb;
   outline-offset: 3px;
 }
+
+/* ── Animation de transition dark/light mode ─────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  ::view-transition-new(root) {
+    animation: theme-reveal .8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes theme-reveal {
+    from {
+      clip-path: circle(0% at var(--toggle-x, 50%) var(--toggle-y, 4rem));
+    }
+    to {
+      clip-path: circle(200% at var(--toggle-x, 50%) var(--toggle-y, 4rem));
+    }
+  }
+}

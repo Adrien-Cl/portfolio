@@ -77,6 +77,7 @@ export type Realisation = {
   docs: string[];
   periode: string;
   competences: Record<CompetenceCode, boolean>;
+  projectTitle?: string;
 };
 
 export type SectionSynthese = {
@@ -90,6 +91,7 @@ export const SYNTHESE: SectionSynthese[] = [
     items: [
       {
         title: "Portfolio Personnel",
+        projectTitle: "Portfolio Professionnel",
         docs: [
           "Site web React/TypeScript/Tailwind CSS",
           "Maquettes Figma",
@@ -107,6 +109,7 @@ export const SYNTHESE: SectionSynthese[] = [
       },
       {
         title: "Application de Réservation Scolaire",
+        projectTitle: "Application de Réservation Scolaire",
         docs: [
           "Application desktop Python/PySide6",
           "Dictionnaire de données & MCD",
@@ -125,6 +128,7 @@ export const SYNTHESE: SectionSynthese[] = [
       },
       {
         title: "VM windows serveur et gestion de parc informatique",
+        projectTitle: "Gestion de Parc Informatique et ticketing — GLPI",
         docs: [
           "Configaration de machines virtuelles Windows Server",
           "Configuration de services réseau (DNS, DHCP, Active Directory)",
