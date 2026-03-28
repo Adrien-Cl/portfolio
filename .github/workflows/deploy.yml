@@ -26,6 +26,8 @@ jobs:
 
       - run: npm ci
       - run: npm run build
+        env:
+          VITE_FORMSPREE_ID: ${{ secrets.VITE_FORMSPREE_ID }}
 
       - uses: actions/upload-pages-artifact@v3
         with:
