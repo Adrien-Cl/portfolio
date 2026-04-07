@@ -1,4 +1,4 @@
-// ─── Données centralisées du portfolio BTS SIO SLAM ─────────────────────────
+﻿// ─── Données centralisées du portfolio BTS SIO SLAM ─────────────────────────
 // Un seul fichier à modifier pour mettre à jour tout le contenu.
 
 export type { Project, ParcoursEntry } from "../types";

@@ -5,10 +5,7 @@ import { PERSONAL } from "../data";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
-  visible: (i = 0) => ({
-    opacity: 1, y: 0,
-    transition: { duration: 0.5, delay: i * 0.07, ease: [0.25, 0.1, 0.25, 1] as const },
-  }),
+  visible: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.07 } }),
 };
 
 export function Contact() {
@@ -24,150 +21,120 @@ export function Contact() {
     const data = new FormData(form);
     try {
       const res = await fetch(`https://formspree.io/f/${import.meta.env.VITE_FORMSPREE_ID}`, {
-        method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
+        method: "POST", body: data, headers: { Accept: "application/json" },
       });
-      if (!res.ok) {
-        setError(true);
-        setLoading(false);
-        return;
-      }
-      setLoading(false);
-      setSent(true);
-      form.reset();
-    } catch {
-      setError(true);
-      setLoading(false);
-    }
+      if (!res.ok) { setError(true); setLoading(false); return; }
+      setLoading(false); setSent(true); form.reset();
+    } catch { setError(true); setLoading(false); }
   }
 
-  return (
-    <section id="contact" className="px-6 py-20 bg-zinc-50 dark:bg-zinc-900/30">
-      <div className="max-w-5xl mx-auto flex flex-col gap-12">
+  const contactRow = { display: "flex", alignItems: "center", gap: "1rem", padding: "1rem 0", borderBottom: "1.5px solid var(--color-ink)", textDecoration: "none", color: "var(--color-ink)", transition: "color 0.15s" };
 
+  return (
+    <section id="contact" style={{ backgroundColor: "var(--color-surface)", borderBottom: "2px solid var(--color-ink)" }}>
+
+      {/* Header */}
+      <div style={{ paddingTop: "4rem", paddingBottom: "2rem" }} className="section-container">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <p className="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-2">Contact</p>
-          <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">Entrons en contact</h2>
+          <span className="section-label">07 — Contact</span>
+          <h2 className="section-heading">Entrons en contact</h2>
+        </motion.div>
+      </div>
+
+      <div style={{ paddingBottom: "5rem", display: "grid", gridTemplateColumns: "1fr", gap: "3rem" }}
+           className="section-container lg:grid-cols-2 lg:gap-20">
+
+        {/* Infos */}
+        <motion.div
+          variants={fadeUp} custom={1} initial="hidden" whileInView="visible" viewport={{ once: true }}
+          style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+
+          <p style={{ fontSize: "1rem", color: "var(--color-ink-muted)", lineHeight: 1.7 }}>
+            N'hésitez pas à me contacter pour toute question, opportunité ou collaboration.
+          </p>
+
+          <div>
+            <a href={`mailto:${PERSONAL.email}`} style={contactRow as React.CSSProperties}
+               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "var(--color-accent-dark)"; }}
+               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "var(--color-ink)"; }}>
+              <Mail size={16} style={{ flexShrink: 0 }} />
+              <span style={{ fontSize: "0.9375rem", fontWeight: 700 }}>{PERSONAL.email}</span>
+            </a>
+            <a href={`tel:${PERSONAL.phone.raw}`} style={contactRow as React.CSSProperties}
+               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "var(--color-accent-dark)"; }}
+               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "var(--color-ink)"; }}>
+              <Phone size={16} style={{ flexShrink: 0 }} />
+              <span style={{ fontSize: "0.9375rem", fontWeight: 700 }}>{PERSONAL.phone.display}</span>
+            </a>
+            <div style={{ display: "flex", alignItems: "center", gap: "1rem", padding: "1rem 0", borderBottom: "1.5px solid var(--color-ink)", color: "var(--color-ink-muted)" }}>
+              <MapPin size={16} style={{ flexShrink: 0 }} />
+              <span style={{ fontSize: "0.9375rem", fontWeight: 700 }}>{PERSONAL.location}</span>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            {[
+              { href: PERSONAL.socials.github, icon: <Github size={15} />, label: "GitHub" },
+              { href: PERSONAL.socials.linkedin, icon: <Linkedin size={15} />, label: "LinkedIn" },
+            ].map(s => (
+              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+                 aria-label={s.label}
+                 style={{ width: "2.5rem", height: "2.5rem", display: "flex", alignItems: "center", justifyContent: "center", border: "2px solid var(--color-ink)", color: "var(--color-ink)", textDecoration: "none", boxShadow: "var(--shadow-flat-sm)", backgroundColor: "var(--color-bg)", transition: "background-color 0.15s, box-shadow 0.15s, transform 0.15s" }}
+                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.backgroundColor = "var(--color-ink)"; el.style.color = "var(--color-bg)"; el.style.boxShadow = "1px 1px 0 var(--color-ink)"; el.style.transform = "translate(1px,1px)"; }}
+                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.backgroundColor = "var(--color-bg)"; el.style.color = "var(--color-ink)"; el.style.boxShadow = "var(--shadow-flat-sm)"; el.style.transform = "none"; }}>
+                {s.icon}
+              </a>
+            ))}
+          </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        {/* Formulaire */}
+        <motion.div
+          variants={fadeUp} custom={2} initial="hidden" whileInView="visible" viewport={{ once: true }}>
 
-          {/* Infos */}
-          <motion.div
-            variants={fadeUp} custom={1} initial="hidden" whileInView="visible" viewport={{ once: true }}
-            className="flex flex-col gap-6">
-            <p className="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
-              N'hésitez pas à me contacter pour toute question, opportunité ou collaboration.
-            </p>
-            <div className="flex flex-col gap-4">
-              <a href={`mailto:${PERSONAL.email}`}
-                className="flex items-center gap-3 text-sm text-zinc-600 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-500 transition-colors">
-                <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
-                  <Mail size={14} />
-                </div>
-                {PERSONAL.email}
-              </a>
-              <a href={`tel:${PERSONAL.phone.raw}`}
-                className="flex items-center gap-3 text-sm text-zinc-600 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-500 transition-colors">
-                <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
-                  <Phone size={14} />
-                </div>
-                {PERSONAL.phone.display}
-              </a>
-              <div className="flex items-center gap-3 text-sm text-zinc-500 dark:text-zinc-500">
-                <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
-                  <MapPin size={14} />
-                </div>
-                {PERSONAL.location}
+          {sent ? (
+            <div style={{ border: "2px solid var(--color-ink)", backgroundColor: "var(--color-surface)", boxShadow: "var(--shadow-flat)", padding: "3rem 2rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem", textAlign: "center" }}>
+              <div style={{ width: "3.5rem", height: "3.5rem", border: "2px solid var(--color-ink)", backgroundColor: "var(--color-accent)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Send size={20} />
               </div>
+              <p style={{ fontSize: "1.125rem", fontWeight: 900, color: "var(--color-ink)" }}>Message envoyé !</p>
+              <p style={{ fontSize: "0.875rem", color: "var(--color-ink-muted)" }}>Je vous répondrai dans les plus brefs délais.</p>
+              <button onClick={() => setSent(false)} className="btn-secondary" style={{ marginTop: "0.5rem" }}>
+                Envoyer un autre message
+              </button>
             </div>
-            <div className="flex items-center gap-3 pt-2">
-              <a href={PERSONAL.socials.github} target="_blank" rel="noopener noreferrer"
-                className="w-9 h-9 flex items-center justify-center rounded-lg border border-zinc-200 dark:border-zinc-700 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 hover:border-zinc-400 transition-all">
-                <Github size={16} />
-              </a>
-              <a href={PERSONAL.socials.linkedin} target="_blank" rel="noopener noreferrer"
-                className="w-9 h-9 flex items-center justify-center rounded-lg border border-zinc-200 dark:border-zinc-700 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 hover:border-zinc-400 transition-all">
-                <Linkedin size={16} />
-              </a>
-            </div>
-          </motion.div>
-
-          {/* Formulaire */}
-          <motion.div
-            variants={fadeUp} custom={2} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            {sent ? (
-              <div className="bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800/50 rounded-xl p-8 flex flex-col items-center justify-center gap-3 h-full min-h-64">
-                <div className="w-12 h-12 rounded-full bg-green-50 dark:bg-green-950/40 flex items-center justify-center">
-                  <Send size={20} className="text-green-600" />
+          ) : (
+            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1.75rem" }} className="md:grid-cols-2">
+                <div>
+                  <label className="form-label">Nom</label>
+                  <input name="name" type="text" required placeholder="Votre nom" className="input-flat" />
                 </div>
-                <p className="font-semibold text-zinc-900 dark:text-zinc-100">Message envoyé !</p>
-                <p className="text-sm text-zinc-500 text-center">Votre mail s'est bien envoyé. Je vous répondrai dans les plus brefs délais.</p>
-                <button onClick={() => setSent(false)} className="text-sm text-blue-600 hover:underline mt-1">
-                  Envoyer un autre message
-                </button>
+                <div>
+                  <label className="form-label">Email</label>
+                  <input name="email" type="email" required placeholder="votre@email.fr" className="input-flat" />
+                </div>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit}
-                className="bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800/50 rounded-xl p-6 flex flex-col gap-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Nom</label>
-                    <input
-                      name="name"
-                      type="text"
-                      required
-                      placeholder="Votre nom"
-                      className="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg px-4 py-2.5 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:border-blue-500 transition-colors"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Email</label>
-                    <input
-                      name="email"
-                      type="email"
-                      required
-                      placeholder="votre@email.fr"
-                      className="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg px-4 py-2.5 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:border-blue-500 transition-colors"
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Sujet</label>
-                  <input
-                    name="subject"
-                    type="text"
-                    placeholder="Sujet de votre message"
-                    className="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg px-4 py-2.5 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:border-blue-500 transition-colors"
-                  />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Message</label>
-                  <textarea
-                    name="message"
-                    required
-                    rows={5}
-                    placeholder="Votre message..."
-                    className="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg px-4 py-2.5 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:border-blue-500 transition-colors resize-none"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="justify-center inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors w-full">
-                  <Send size={14} />
-                  {loading ? "Envoi…" : "Envoyer"}
-                </button>
-                {error && (
-                  <p className="text-sm text-red-500 dark:text-red-400 text-center">
-                    Une erreur est survenue lors de l'envoi. Veuillez réessayer ou me contacter directement par email.
-                  </p>
-                )}
-              </form>
-            )}
-          </motion.div>
-        </div>
+              <div>
+                <label className="form-label">Sujet</label>
+                <input name="subject" type="text" placeholder="Sujet de votre message" className="input-flat" />
+              </div>
+              <div>
+                <label className="form-label">Message</label>
+                <textarea name="message" required rows={5} placeholder="Votre message..." className="input-flat" />
+              </div>
+              <button type="submit" disabled={loading} className="btn-primary" style={{ alignSelf: "center", width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}>
+                <Send size={14} />
+                {loading ? "Envoi…" : "Envoyer"}
+              </button>
+              {error && (
+                <p style={{ fontSize: "0.875rem", fontWeight: 700, color: "#DC2626" }}>
+                  Une erreur est survenue. Réessayez ou contactez-moi directement par email.
+                </p>
+              )}
+            </form>
+          )}
+        </motion.div>
       </div>
     </section>
   );

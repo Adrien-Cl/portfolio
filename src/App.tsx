@@ -25,15 +25,8 @@ function App() {
     const { clientX: x, clientY: y } = e;
     document.documentElement.style.setProperty("--toggle-x", `${x}px`);
     document.documentElement.style.setProperty("--toggle-y", `${y}px`);
-
-    if (!document.startViewTransition) {
-      setIsDark(v => !v);
-      return;
-    }
-
-    document.startViewTransition(() => {
-      flushSync(() => setIsDark(v => !v));
-    });
+    if (!document.startViewTransition) { setIsDark(v => !v); return; }
+    document.startViewTransition(() => { flushSync(() => setIsDark(v => !v)); });
   }
 
   function handleOpenProject(title: string) {
@@ -44,21 +37,15 @@ function App() {
   }
 
   return (
-    <div className={`${isDark ? "dark" : ""} min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors duration-300 font-sans selection:bg-blue-600 selection:text-white`}>
-
-      {/* Barre de progression */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-0.5 z-100 origin-left bg-blue-600"
-        style={{ scaleX }}
-      />
+    <div className={isDark ? "dark" : ""} style={{ backgroundColor: "var(--color-bg)", minHeight: "100dvh" }}>
+      <motion.div className="progress-bar" style={{ scaleX }} />
 
       <Navbar isDark={isDark} onToggleTheme={handleToggleTheme} />
 
       <motion.main
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="divide-y divide-zinc-100 dark:divide-zinc-800/40">
+        transition={{ duration: 0.4 }}>
         <Hero />
         <About />
         <Parcours />

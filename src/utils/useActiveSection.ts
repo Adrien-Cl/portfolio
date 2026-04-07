@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 
 const SECTION_IDS = ["about", "parcours", "projects", "skills", "synthese", "veille", "contact"];
 

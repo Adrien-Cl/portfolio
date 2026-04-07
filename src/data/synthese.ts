@@ -1,4 +1,4 @@
-// ─── Tableau de synthèse BTS SIO — Annexe 8-1 — Épreuve E5 ───────────────────
+﻿// ─── Tableau de synthèse BTS SIO — Annexe 8-1 — Épreuve E5 ───────────────────
 
 export const SYNTHESE_INFO = {
   nom: "Clavreul Adrien",

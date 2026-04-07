@@ -4,95 +4,89 @@ import { VEILLE } from "../data";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
-  visible: (i = 0) => ({
-    opacity: 1, y: 0,
-    transition: { duration: 0.5, delay: i * 0.07, ease: [0.25, 0.1, 0.25, 1] as const },
-  }),
+  visible: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.07 } }),
 };
 
 export function Veille() {
   return (
-    <section id="veille" className="px-6 py-20">
-      <div className="max-w-5xl mx-auto flex flex-col gap-12">
+    <section id="veille" style={{ backgroundColor: "var(--color-surface)", borderBottom: "2px solid var(--color-ink)" }}>
 
+      {/* Header */}
+      <div style={{ paddingTop: "4rem", paddingBottom: "2rem" }} className="section-container">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <p className="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-2">Veille Technologique</p>
-          <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">{VEILLE.theme}</h2>
+          <span className="section-label">06 — Veille Technologique</span>
+          <h2 className="section-heading">{VEILLE.theme}</h2>
         </motion.div>
+      </div>
 
-        {/* Intro */}
+      {/* Intro */}
+      <div style={{ paddingBottom: "2.5rem" }} className="section-container">
         <motion.p
           variants={fadeUp} custom={1} initial="hidden" whileInView="visible" viewport={{ once: true }}
-          className="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-3xl border-l-2 border-blue-600 pl-5">
+          style={{ fontSize: "1rem", color: "var(--color-ink-muted)", lineHeight: 1.7, maxWidth: "48rem", borderLeft: "4px solid var(--color-ink)", paddingLeft: "1.25rem" }}>
           {VEILLE.intro}
         </motion.p>
+      </div>
 
-        {/* Sous-thèmes */}
-        <div className="flex flex-col gap-5">
-          {VEILLE.subtopics.map((sub, i) => (
+      {/* Sous-thèmes */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }} className="section-container">
+        {VEILLE.subtopics.map((sub, i) => (
+          <motion.div
+            key={i}
+            variants={fadeUp} custom={i + 2} initial="hidden" whileInView="visible" viewport={{ once: true }}
+            style={{ border: "2px solid var(--color-ink)", backgroundColor: "var(--color-bg)", padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem" }}>
+              <span style={{ fontSize: "0.75rem", fontWeight: 900, color: "var(--color-accent-dark)", flexShrink: 0, paddingTop: "0.375rem", minWidth: "1.5rem" }}>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 style={{ fontSize: "1.125rem", fontWeight: 900, letterSpacing: "-0.02em", color: "var(--color-ink)" }}>{sub.title}</h3>
+            </div>
+
+            <p style={{ fontSize: "0.875rem", color: "var(--color-ink-muted)", lineHeight: 1.7, paddingLeft: "2.5rem" }}>
+              {sub.content}
+            </p>
+
+            <div style={{ paddingLeft: "2.5rem", display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+              {sub.sources.map(s => (
+                <a
+                  key={s.label}
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.375rem", fontSize: "0.6875rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--color-ink)", border: "1.5px solid var(--color-ink)", padding: "0.25rem 0.75rem", textDecoration: "none", backgroundColor: "transparent", transition: "background-color 0.15s" }}
+                  onMouseEnter={e => (e.currentTarget.style.backgroundColor = "var(--color-accent)")}
+                  onMouseLeave={e => (e.currentTarget.style.backgroundColor = "transparent")}>
+                  <ExternalLink size={9} />
+                  {s.label}
+                </a>
+              ))}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Autres sources */}
+      <div style={{ paddingTop: "2.5rem", paddingBottom: "5rem" }} className="section-container">
+        <motion.span
+          variants={fadeUp} custom={5} initial="hidden" whileInView="visible" viewport={{ once: true }}
+          className="section-label">
+          Autres sources de veille régulière
+        </motion.span>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "0.75rem" }} className="md:grid-cols-2">
+          {VEILLE.otherTopics.map((item, i) => (
             <motion.div
               key={i}
-              variants={fadeUp}
-              custom={i + 2}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800/50 rounded-xl p-6 flex flex-col gap-4">
-              <div className="flex items-start gap-3">
-                <span className="shrink-0 text-xs font-bold text-blue-600 bg-blue-50 dark:bg-blue-950/40 rounded-full w-6 h-6 flex items-center justify-center mt-0.5">
-                  {i + 1}
-                </span>
-                <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">{sub.title}</h3>
+              variants={fadeUp} custom={i + 6} initial="hidden" whileInView="visible" viewport={{ once: true }}
+              style={{ padding: "1.25rem", border: "2px solid var(--color-ink)", backgroundColor: "var(--color-bg)", display: "flex", flexDirection: "column", gap: "0.375rem" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
+                <h4 style={{ fontSize: "0.9375rem", fontWeight: 900, color: "var(--color-ink)", letterSpacing: "-0.02em" }}>{item.nom}</h4>
+                <span style={{ fontSize: "0.625rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--color-accent-dark)", flexShrink: 0, padding: "0.125rem 0.5rem", border: "1.5px solid var(--color-ink)", backgroundColor: "var(--color-accent)" }}>{item.type}</span>
               </div>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed pl-9">
-                {sub.content}
-              </p>
-              <div className="pl-9 flex flex-wrap gap-2">
-                {sub.sources.map(s => (
-                  <a
-                    key={s.label}
-                    href={s.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-500 border border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300 px-3 py-1 rounded-full transition-all">
-                    <ExternalLink size={10} />
-                    {s.label}
-                  </a>
-                ))}
-              </div>
+              <p style={{ fontSize: "0.8125rem", color: "var(--color-ink-muted)", lineHeight: 1.5 }}>{item.desc}</p>
             </motion.div>
           ))}
         </div>
-
-        {/* Autres sources de veille */}
-        <div className="flex flex-col gap-5">
-          <motion.p
-            variants={fadeUp} custom={5} initial="hidden" whileInView="visible" viewport={{ once: true }}
-            className="text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
-            Autres sources de veille régulière
-          </motion.p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {VEILLE.otherTopics.map((item, i) => (
-        <motion.div
-                key={i}
-                variants={fadeUp}
-                custom={i + 6}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                className="bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-100 dark:border-zinc-800/50 rounded-xl p-4 flex flex-col gap-1.5">
-                <div className="flex items-center justify-between gap-2">
-                  <h4 className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{item.nom}</h4>
-                  <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-600 bg-blue-50 dark:bg-blue-950/30 px-2 py-0.5 rounded-full shrink-0">
-                    {item.type}
-                  </span>
-                </div>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
       </div>
     </section>
   );

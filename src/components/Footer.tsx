@@ -3,17 +3,28 @@ import { PERSONAL } from "../data";
 
 export function Footer() {
   return (
-    <footer className="border-t border-zinc-100 dark:border-zinc-800/50 py-8 px-6">
-      <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-zinc-400 dark:text-zinc-500">
-        <p>© {new Date().getFullYear()} {PERSONAL.name} — BTS SIO SLAM</p>
-        <div className="flex items-center gap-4">
-          <a href={PERSONAL.socials.github} target="_blank" rel="noopener noreferrer"
-            className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
-            <Github size={16} />
+    <footer className="site-footer">
+      <div style={{ display: "flex", flexDirection: "column", gap: "1rem", alignItems: "center", justifyContent: "space-between" }}
+           className="section-container sm:flex-row">
+        <p style={{ fontSize: "0.8125rem", fontWeight: 700, opacity: 0.8 }}>
+          © {new Date().getFullYear()} {PERSONAL.name} — BTS SIO SLAM
+        </p>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <a
+            href={PERSONAL.socials.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-social-link"
+            aria-label="GitHub">
+            <Github size={14} />
           </a>
-          <a href={PERSONAL.socials.linkedin} target="_blank" rel="noopener noreferrer"
-            className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
-            <Linkedin size={16} />
+          <a
+            href={PERSONAL.socials.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-social-link"
+            aria-label="LinkedIn">
+            <Linkedin size={14} />
           </a>
         </div>
       </div>

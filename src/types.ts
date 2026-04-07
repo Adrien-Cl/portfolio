@@ -1,4 +1,4 @@
-// ─── Types partagés du portfolio ─────────────────────────────────────────────
+﻿// ─── Types partagés du portfolio ─────────────────────────────────────────────
 
 export type ProjectFilter = "dev" | "software" | "communication" | "infra";
 

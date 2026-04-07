@@ -5,54 +5,18 @@ import { PROJECTS, type ProjectFilter } from "../data";
 import { asset } from "../utils/asset";
 
 const FILTERS: { label: string; value: "all" | ProjectFilter }[] = [
-  { label: "Tous", value: "all" },
-  { label: "Développement Web", value: "dev" },
-  { label: "Développement Logiciel", value: "software" },
-  { label: "Communication Digitale", value: "communication" },
-  { label: "Infrastructure & Réseau", value: "infra" },
+  { label: "Tous",              value: "all" },
+  { label: "Web",               value: "dev" },
+  { label: "Logiciel",          value: "software" },
+  { label: "Communication",     value: "communication" },
+  { label: "Infrastructure",    value: "infra" },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
-  visible: (i = 0) => ({
-    opacity: 1, y: 0,
-    transition: { duration: 0.5, delay: i * 0.07, ease: [0.25, 0.1, 0.25, 1] as const },
-  }),
-};
-
 const BTS_STEPS = [
-  {
-    key: "brief" as const,
-    num: "01",
-    label: "Le Brief",
-    desc: "Contexte & demande",
-    accent: "bg-blue-50 dark:bg-blue-950/30 border-blue-100 dark:border-blue-900/40",
-    numColor: "text-blue-600",
-  },
-  {
-    key: "demarche" as const,
-    num: "02",
-    label: "La Démarche",
-    desc: "Recherches & cheminement",
-    accent: "bg-violet-50 dark:bg-violet-950/30 border-violet-100 dark:border-violet-900/40",
-    numColor: "text-violet-600",
-  },
-  {
-    key: "realisation" as const,
-    num: "03",
-    label: "La Réalisation",
-    desc: "Outils & techniques",
-    accent: "bg-emerald-50 dark:bg-emerald-950/30 border-emerald-100 dark:border-emerald-900/40",
-    numColor: "text-emerald-600",
-  },
-  {
-    key: "autocritique" as const,
-    num: "04",
-    label: "Autocritique",
-    desc: "Ce que j'en retire",
-    accent: "bg-amber-50 dark:bg-amber-950/30 border-amber-100 dark:border-amber-900/40",
-    numColor: "text-amber-600",
-  },
+  { key: "brief" as const,       num: "01", label: "Le Brief",       desc: "Contexte & demande" },
+  { key: "demarche" as const,    num: "02", label: "La Démarche",    desc: "Recherches & cheminement" },
+  { key: "realisation" as const, num: "03", label: "La Réalisation", desc: "Outils & techniques" },
+  { key: "autocritique" as const,num: "04", label: "Autocritique",   desc: "Ce que j'en retire" },
 ];
 
 function Modal({ project, onClose }: { project: typeof PROJECTS[number]; onClose: () => void }) {
@@ -62,195 +26,114 @@ function Modal({ project, onClose }: { project: typeof PROJECTS[number]; onClose
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKey);
-    };
+    return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", onKey); };
   }, [onClose]);
 
   const hasLinks = project.github || (project.link && project.link !== "#");
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.2 }}
-      className="fixed inset-0 z-50 flex items-start justify-center p-4 md:p-8 overflow-y-auto"
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
+      style={{ position: "fixed", inset: 0, zIndex: 50, display: "flex", alignItems: "flex-start", justifyContent: "center", padding: "2rem 1rem", overflowY: "auto", backgroundColor: "rgba(26,26,46,0.7)" }}
       onClick={onClose}>
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
 
       <motion.div
-        initial={{ opacity: 0, y: 24, scale: 0.98 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 24, scale: 0.98 }}
-        transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }}
+        transition={{ duration: 0.25 }}
         onClick={e => e.stopPropagation()}
-        className="relative z-10 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700/50 rounded-2xl w-full max-w-4xl my-auto shadow-2xl overflow-hidden">
+        style={{ position: "relative", zIndex: 10, backgroundColor: "var(--color-surface)", border: "2px solid var(--color-ink)", boxShadow: "var(--shadow-flat-lg)", width: "100%", maxWidth: "56rem", margin: "auto", overflow: "hidden" }}>
 
         {/* Bouton fermer */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 w-8 h-8 flex items-center justify-center rounded-full bg-white/80 dark:bg-zinc-800/80 backdrop-blur-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 border border-zinc-200 dark:border-zinc-700 shadow-sm transition-all">
-          <X size={15} />
+          aria-label="Fermer"
+          style={{ position: "absolute", top: "1rem", right: "1rem", zIndex: 20, width: "2.25rem", height: "2.25rem", display: "flex", alignItems: "center", justifyContent: "center", border: "2px solid var(--color-ink)", backgroundColor: "var(--color-bg)", cursor: "pointer", transition: "background-color 0.15s" }}
+          onMouseEnter={e => (e.currentTarget.style.backgroundColor = "var(--color-accent)")}
+          onMouseLeave={e => (e.currentTarget.style.backgroundColor = "var(--color-bg)")}>
+          <X size={14} />
         </button>
 
-        {/* Image pleine largeur */}
-        <div className="w-full h-52 md:h-72 overflow-hidden bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center">
-          {imgError ? (
-            <ImageOff size={32} className="text-zinc-300 dark:text-zinc-600" />
-          ) : (
-            <img
-              src={asset(project.img)}
-              alt={project.title}
+        {/* Image */}
+        <div style={{ width: "100%", height: "14rem", overflow: "hidden", backgroundColor: "var(--color-accent)", borderBottom: "2px solid var(--color-ink)", display: "flex", alignItems: "center", justifyContent: "center" }}
+             className="md:h-64">
+          {imgError ? <ImageOff size={32} style={{ color: "var(--color-ink-muted)" }} /> : (
+            <img src={asset(project.img)} alt={project.title}
               onError={() => setImgError(true)}
-              className="w-full h-full object-cover object-top"
-            />
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
           )}
         </div>
 
-        <div className="p-6 md:p-8 flex flex-col gap-8">
+        <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1.5rem" }} className="md:p-8">
 
-          {/* En-tête : titre + desc + stack + liens */}
-          <div className="flex flex-col md:flex-row md:items-start gap-6">
-            <div className="flex-1 flex flex-col gap-4">
+          {/* En-tête */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }} className="md:flex-row md:items-start">
+            <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "0.75rem" }}>
               <div>
-                <span className="text-xs font-semibold uppercase tracking-widest text-blue-600">{project.category}</span>
-                <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mt-1">
-                  {project.title}
-                </h3>
+                <span style={{ fontSize: "0.6875rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.25em", color: "var(--color-accent-dark)" }}>{project.category}</span>
+                <h3 style={{ fontSize: "clamp(1.5rem, 4vw, 2.25rem)", fontWeight: 900, letterSpacing: "-0.04em", color: "var(--color-ink)", lineHeight: 1.05 }}>{project.title}</h3>
               </div>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">{project.desc}</p>
-              <div className="flex flex-wrap gap-1.5">
-                {project.tech.map(t => (
-                  <span key={t} className="text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-2.5 py-1 rounded-md">
-                    {t}
-                  </span>
-                ))}
-              </div>
+              <p style={{ fontSize: "0.875rem", color: "var(--color-ink-muted)", lineHeight: 1.6 }}>{project.desc}</p>
+              <ul style={{ display: "flex", flexWrap: "wrap", gap: "0.375rem", listStyle: "none", padding: 0, margin: 0 }}>
+                {project.tech.map(t => <li key={t} className="tag">{t}</li>)}
+              </ul>
             </div>
 
-            {/* Liens ou note "privé" */}
             {hasLinks ? (
-              <div className="flex md:flex-col gap-2 shrink-0">
+              <div style={{ display: "flex", gap: "0.5rem", flexShrink: 0 }} className="md:flex-col">
                 {project.github && (
-                  <a href={project.github} target="_blank" rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm font-medium border border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 text-zinc-600 dark:text-zinc-400 px-4 py-2 rounded-lg transition-colors whitespace-nowrap">
-                    <Github size={14} /> Code source
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ fontSize: "0.75rem", padding: "0.5rem 1rem" }}>
+                    <Github size={12} /> Code source
                   </a>
                 )}
                 {project.link && project.link !== "#" && (
-                  <a href={project.link} target="_blank" rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap">
-                    <ExternalLink size={14} /> Voir le site
+                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ fontSize: "0.75rem", padding: "0.5rem 1rem" }}>
+                    <ExternalLink size={12} /> Voir le site
                   </a>
                 )}
               </div>
             ) : (
-              <p className="text-xs text-zinc-400 dark:text-zinc-500 italic shrink-0 self-start md:self-center max-w-40 md:text-right">
-                Code source privé / non disponible
-              </p>
+              <p style={{ fontSize: "0.6875rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--color-ink-muted)", flexShrink: 0 }}>Source privée</p>
             )}
           </div>
 
-          {/* Séparateur */}
-          <div className="flex items-center gap-3">
-            <div className="flex-1 h-px bg-zinc-100 dark:bg-zinc-800" />
-            <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-600">
-              Analyse du projet
-            </span>
-            <div className="flex-1 h-px bg-zinc-100 dark:bg-zinc-800" />
+          {/* Séparateur Analyse BTS */}
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            <div style={{ flex: 1, height: "2px", backgroundColor: "var(--color-ink)" }} />
+            <span style={{ fontSize: "0.625rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.3em", color: "var(--color-ink-muted)", whiteSpace: "nowrap" }}>Analyse BTS</span>
+            <div style={{ flex: 1, height: "2px", backgroundColor: "var(--color-ink)" }} />
           </div>
 
-          {/* Grille 2×2 des étapes BTS */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {BTS_STEPS.map(step => {
+          {/* Grille BTS */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "0.75rem" }} className="md:grid-cols-2">
+            {BTS_STEPS.map((step) => {
               const value = project[step.key];
               return (
-                <div
-                  key={step.key}
-                  className={`rounded-xl border p-5 flex flex-col gap-3 ${step.accent}`}>
-                  <div className="flex items-center gap-2">
-                    <span className={`text-xs font-black tabular-nums ${step.numColor}`}>
-                      {step.num}
-                    </span>
-                    <div className="h-3 w-px bg-zinc-300 dark:bg-zinc-600" />
+                <div key={step.key} style={{ padding: "1.25rem", border: "2px solid var(--color-ink)", backgroundColor: "var(--color-bg)", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                    <span style={{ fontSize: "0.75rem", fontWeight: 900, color: "var(--color-accent-dark)" }}>{step.num}</span>
+                    <div style={{ width: "2px", height: "1rem", backgroundColor: "var(--color-ink)" }} />
                     <div>
-                      <p className={`text-xs font-bold uppercase tracking-wider ${step.numColor}`}>
-                        {step.label}
-                      </p>
-                      <p className="text-[10px] text-zinc-400 dark:text-zinc-500">{step.desc}</p>
+                      <p style={{ fontSize: "0.6875rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--color-ink)" }}>{step.label}</p>
+                      <p style={{ fontSize: "0.625rem", color: "var(--color-ink-muted)" }}>{step.desc}</p>
                     </div>
                   </div>
-
                   {Array.isArray(value) ? (
-                    <ul className="flex flex-col gap-2">
+                    <ul style={{ display: "flex", flexDirection: "column", gap: "0.375rem", paddingLeft: 0, listStyle: "none", margin: 0 }}>
                       {(value as string[]).map((s, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                          <span className={`font-bold shrink-0 text-xs mt-0.5 ${step.numColor}`}>→</span>
-                          {s}
+                        <li key={i} style={{ display: "flex", gap: "0.5rem", fontSize: "0.875rem", color: "var(--color-ink-muted)", lineHeight: 1.5 }}>
+                          <span style={{ flexShrink: 0, fontWeight: 700, color: "var(--color-accent-dark)" }}>→</span>{s}
                         </li>
                       ))}
                     </ul>
                   ) : (
-                    <p className={`text-sm leading-relaxed ${step.key === "autocritique" ? "italic text-zinc-500 dark:text-zinc-500" : "text-zinc-600 dark:text-zinc-400"}`}>
-                      {value as string}
-                    </p>
+                    <p style={{ fontSize: "0.875rem", color: "var(--color-ink-muted)", lineHeight: 1.6, fontStyle: step.key === "autocritique" ? "italic" : "normal" }}>{value as string}</p>
                   )}
                 </div>
               );
             })}
           </div>
-
         </div>
       </motion.div>
-    </motion.div>
-  );
-}
-
-function ProjectCard({ project, onClick }: { project: typeof PROJECTS[number]; onClick: () => void }) {
-  const [imgError, setImgError] = useState(false);
-
-  return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, scale: 0.97 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.97 }}
-      transition={{ duration: 0.3 }}
-      onClick={onClick}
-      className="group bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800/50 rounded-xl overflow-hidden cursor-pointer hover:border-zinc-300 dark:hover:border-zinc-600 hover:shadow-md transition-all duration-300">
-      <div className="aspect-video overflow-hidden bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center">
-        {imgError ? (
-          <ImageOff size={24} className="text-zinc-300 dark:text-zinc-600" />
-        ) : (
-          <img
-            src={asset(project.img)}
-            alt={project.title}
-            loading="lazy"
-            onError={() => setImgError(true)}
-            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-          />
-        )}
-      </div>
-      <div className="p-5 flex flex-col gap-2.5">
-        <p className="text-xs font-semibold uppercase tracking-wider text-blue-600">{project.category}</p>
-        <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100 flex items-center gap-1 group-hover:text-blue-600 transition-colors">
-          {project.title}
-          <ArrowUpRight size={15} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-        </h3>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed line-clamp-2">{project.desc}</p>
-        <div className="flex flex-wrap gap-1.5 pt-1">
-          {project.tech.slice(0, 3).map(t => (
-            <span key={t} className="text-xs text-zinc-500 bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 px-2 py-0.5 rounded">
-              {t}
-            </span>
-          ))}
-          {project.tech.length > 3 && (
-            <span className="text-xs text-zinc-400 px-2 py-0.5">+{project.tech.length - 3}</span>
-          )}
-        </div>
-      </div>
     </motion.div>
   );
 }
@@ -262,48 +145,82 @@ interface ProjectsProps {
 
 export function Projects({ selected, setSelected }: ProjectsProps) {
   const [filter, setFilter] = useState<"all" | ProjectFilter>("all");
-
   const filtered = filter === "all" ? PROJECTS : PROJECTS.filter(p => p.filter === filter);
 
   return (
-    <section id="projects" className="px-6 py-20">
-      <div className="max-w-5xl mx-auto flex flex-col gap-10">
+    <section id="projects" style={{ backgroundColor: "var(--color-bg)", borderBottom: "2px solid var(--color-ink)" }}>
 
-        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <p className="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-2">Projets</p>
-          <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">Mes réalisations</h2>
+      {/* Header */}
+      <div style={{ paddingTop: "4rem", paddingBottom: "2rem" }} className="section-container">
+        <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+          <span className="section-label">03 — Projets</span>
+          <h2 className="section-heading">Mes réalisations</h2>
         </motion.div>
+      </div>
 
-        {/* Filtres */}
-        <motion.div
-          variants={fadeUp} custom={1} initial="hidden" whileInView="visible" viewport={{ once: true }}
-          className="flex flex-wrap gap-2">
-          {FILTERS.map(f => (
-            <button
-              key={f.value}
-              onClick={() => setFilter(f.value)}
-              className={`text-sm font-medium px-4 py-1.5 rounded-full border transition-all ${
-                filter === f.value
-                  ? "bg-blue-600 border-blue-600 text-white"
-                  : "border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 hover:border-zinc-400 dark:hover:border-zinc-500"
-              }`}>
-              {f.label}
-            </button>
-          ))}
-        </motion.div>
+      {/* Filtres */}
+      <div style={{ paddingBottom: "1.5rem", display: "flex", flexWrap: "wrap", gap: "0.5rem" }} className="section-container">
+        {FILTERS.map(f => (
+          <button
+            key={f.value}
+            onClick={() => setFilter(f.value)}
+            style={{
+              fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.15em",
+              padding: "0.375rem 1rem", border: "2px solid var(--color-ink)", cursor: "pointer",
+              backgroundColor: filter === f.value ? "var(--color-ink)" : "transparent",
+              color: filter === f.value ? "var(--color-bg)" : "var(--color-ink)",
+              transition: "background-color 0.15s, color 0.15s",
+              fontFamily: "var(--font-sans)",
+            }}>
+            {f.label}
+          </button>
+        ))}
+      </div>
 
-        {/* Grille */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((project) => (
-              <ProjectCard
+      {/* Grille projets */}
+      <div style={{ paddingBottom: "5rem" }} className="section-container">
+        <AnimatePresence mode="popLayout">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(1, 1fr)", gap: "1rem" }}
+               className="sm:grid-cols-2 lg:grid-cols-3">
+            {filtered.map((project, i) => (
+              <motion.article
                 key={project.title}
-                project={project}
+                layout
+                initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }}
+                transition={{ duration: 0.25, delay: i * 0.05 }}
                 onClick={() => setSelected(PROJECTS.indexOf(project))}
-              />
+                className="card-flat"
+                style={{ cursor: "pointer", overflow: "hidden" }}>
+
+                {/* Image */}
+                <div style={{ width: "100%", height: "11rem", overflow: "hidden", backgroundColor: "var(--color-accent)", borderBottom: "2px solid var(--color-ink)", position: "relative" }}>
+                  <img
+                    src={asset(project.img)} alt={project.title}
+                    style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
+                  <span style={{ position: "absolute", top: "0.75rem", left: "0.75rem", fontSize: "0.6875rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", backgroundColor: "var(--color-accent)", border: "1.5px solid var(--color-ink)", padding: "0.125rem 0.625rem", color: "var(--color-ink)" }}>
+                    {project.category}
+                  </span>
+                </div>
+
+                {/* Contenu */}
+                <div style={{ padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.625rem" }}>
+                  <h3 style={{ fontSize: "1rem", fontWeight: 900, letterSpacing: "-0.02em", color: "var(--color-ink)", display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "0.5rem" }}>
+                    <span>{project.title}</span>
+                    <ArrowUpRight size={16} style={{ flexShrink: 0, color: "var(--color-ink-muted)", marginTop: "0.1rem" }} />
+                  </h3>
+                  <p style={{ fontSize: "0.8125rem", color: "var(--color-ink-muted)", lineHeight: 1.5, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                    {project.desc}
+                  </p>
+                  <ul style={{ display: "flex", flexWrap: "wrap", gap: "0.375rem", listStyle: "none", padding: 0, margin: 0 }}>
+                    {project.tech.slice(0, 4).map(t => <li key={t} className="tag" style={{ fontSize: "0.6875rem" }}>{t}</li>)}
+                    {project.tech.length > 4 && <li style={{ fontSize: "0.6875rem", fontWeight: 700, color: "var(--color-ink-muted)", padding: "0.25rem" }}>+{project.tech.length - 4}</li>}
+                  </ul>
+                </div>
+              </motion.article>
             ))}
-          </AnimatePresence>
-        </div>
+          </div>
+        </AnimatePresence>
       </div>
 
       <AnimatePresence>
