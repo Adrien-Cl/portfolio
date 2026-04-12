@@ -5,11 +5,17 @@ import { PROJECTS, type ProjectFilter } from "../data";
 import { asset } from "../utils/asset";
 
 const FILTERS: { label: string; value: "all" | ProjectFilter }[] = [
-  { label: "Tous",              value: "all" },
-  { label: "Web",               value: "dev" },
-  { label: "Logiciel",          value: "software" },
-  { label: "Communication",     value: "communication" },
-  { label: "Infrastructure",    value: "infra" },
+  { label: "Tous",           value: "all" },
+  { label: "Web",            value: "dev" },
+  { label: "Logiciel",       value: "software" },
+  { label: "Communication",  value: "communication" },
+  { label: "Infrastructure", value: "infra" },
+];
+
+const BTS_FILTERS: { label: string; value: "all" | "E5" | "E6" }[] = [
+  { label: "Tous",      value: "all" },
+  { label: "Projet E5", value: "E5" },
+  { label: "Projet E6", value: "E6" },
 ];
 
 const BTS_STEPS = [
@@ -69,7 +75,14 @@ function Modal({ project, onClose }: { project: typeof PROJECTS[number]; onClose
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }} className="md:flex-row md:items-start">
             <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "0.75rem" }}>
               <div>
-                <span style={{ fontSize: "0.6875rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.25em", color: "var(--color-accent-dark)" }}>{project.category}</span>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.25rem" }}>
+                  <span style={{ fontSize: "0.6875rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.25em", color: "var(--color-accent-dark)" }}>{project.category}</span>
+                  {project.bts && (
+                    <span style={{ fontSize: "0.6875rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", backgroundColor: "var(--color-accent-dark)", border: "1.5px solid var(--color-ink)", padding: "0.125rem 0.5rem", color: "var(--color-bg)" }}>
+                      {project.bts}
+                    </span>
+                  )}
+                </div>
                 <h3 style={{ fontSize: "clamp(1.5rem, 4vw, 2.25rem)", fontWeight: 900, letterSpacing: "-0.04em", color: "var(--color-ink)", lineHeight: 1.05 }}>{project.title}</h3>
               </div>
               <p style={{ fontSize: "0.875rem", color: "var(--color-ink-muted)", lineHeight: 1.6 }}>{project.desc}</p>
@@ -145,7 +158,13 @@ interface ProjectsProps {
 
 export function Projects({ selected, setSelected }: ProjectsProps) {
   const [filter, setFilter] = useState<"all" | ProjectFilter>("all");
-  const filtered = filter === "all" ? PROJECTS : PROJECTS.filter(p => p.filter === filter);
+  const [btsFilter, setBtsFilter] = useState<"all" | "E5" | "E6">("all");
+
+  const filtered = PROJECTS.filter(p => {
+    const categoryMatch = filter === "all" || p.filter === filter;
+    const btsMatch = btsFilter === "all" || p.bts === btsFilter;
+    return categoryMatch && btsMatch;
+  });
 
   return (
     <section id="projects" style={{ backgroundColor: "var(--color-bg)", borderBottom: "2px solid var(--color-ink)" }}>
@@ -154,24 +173,23 @@ export function Projects({ selected, setSelected }: ProjectsProps) {
       <div style={{ paddingTop: "4rem", paddingBottom: "2rem" }} className="section-container">
         <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
           <span className="section-label">03 — Projets</span>
-          <h2 className="section-heading">Mes réalisations</h2>
+          <h2 className="section-heading">Réalisations</h2>
         </motion.div>
       </div>
 
-      {/* Filtres */}
-      <div style={{ paddingBottom: "1.5rem", display: "flex", flexWrap: "wrap", gap: "0.5rem" }} className="section-container">
+      {/* Filtres catégorie */}
+      <div style={{ paddingBottom: "0.625rem", display: "flex", flexWrap: "wrap", gap: "0.5rem" }} className="section-container">
         {FILTERS.map(f => (
-          <button
-            key={f.value}
-            onClick={() => setFilter(f.value)}
-            style={{
-              fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.15em",
-              padding: "0.375rem 1rem", border: "2px solid var(--color-ink)", cursor: "pointer",
-              backgroundColor: filter === f.value ? "var(--color-ink)" : "transparent",
-              color: filter === f.value ? "var(--color-bg)" : "var(--color-ink)",
-              transition: "background-color 0.15s, color 0.15s",
-              fontFamily: "var(--font-sans)",
-            }}>
+          <button key={f.value} onClick={() => setFilter(f.value)} style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.15em", padding: "0.375rem 1rem", border: "2px solid var(--color-ink)", cursor: "pointer", backgroundColor: filter === f.value ? "var(--color-ink)" : "transparent", color: filter === f.value ? "var(--color-bg)" : "var(--color-ink)", transition: "background-color 0.15s, color 0.15s", fontFamily: "var(--font-sans)" }}>
+            {f.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Filtres BTS */}
+      <div style={{ paddingBottom: "1.5rem", display: "flex", flexWrap: "wrap", gap: "0.5rem" }} className="section-container">
+        {BTS_FILTERS.map(f => (
+          <button key={f.value} onClick={() => setBtsFilter(f.value)} style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.15em", padding: "0.375rem 1rem", border: "2px solid var(--color-accent-dark)", cursor: "pointer", backgroundColor: btsFilter === f.value ? "var(--color-accent-dark)" : "transparent", color: btsFilter === f.value ? "var(--color-bg)" : "var(--color-accent-dark)", transition: "background-color 0.15s, color 0.15s", fontFamily: "var(--font-sans)" }}>
             {f.label}
           </button>
         ))}
@@ -201,6 +219,11 @@ export function Projects({ selected, setSelected }: ProjectsProps) {
                   <span style={{ position: "absolute", top: "0.75rem", left: "0.75rem", fontSize: "0.6875rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", backgroundColor: "var(--color-accent)", border: "1.5px solid var(--color-ink)", padding: "0.125rem 0.625rem", color: "var(--color-ink)" }}>
                     {project.category}
                   </span>
+                  {project.bts && (
+                    <span style={{ position: "absolute", top: "0.75rem", right: "0.75rem", fontSize: "0.6875rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", backgroundColor: "var(--color-accent-dark)", border: "1.5px solid var(--color-ink)", padding: "0.125rem 0.625rem", color: "var(--color-bg)" }}>
+                      {project.bts}
+                    </span>
+                  )}
                 </div>
 
                 {/* Contenu */}

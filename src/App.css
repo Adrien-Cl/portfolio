@@ -1,14 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "tailwindcss";
 
-/* ── Palette Jardin Nordique ──────────────────────────────────────────────── */
+/* ── Palette ──────────────────────────────────────────────────────────────── */
 @theme {
-  --color-bg:           #F4F0E8;
-  --color-surface:      #FAFAF7;
-  --color-ink:          #1A1A2E;
-  --color-ink-muted:    #6C6C7E;
-  --color-accent:       #B4CDE3;
-  --color-accent-dark:  #89AECF;
+  --color-bg:           #F5F4F0;   /* 60% — blanc cassé neutre */
+  --color-surface:      #ECEAE4;   /* 30% — gris chaud, même famille */
+  --color-ink:          #1A1A1A;   /* encre quasi-noire */
+  --color-ink-muted:    #737373;
+  --color-accent:       #BFDBFE;   /* hover BG — bleu-200, texte sombre lisible */
+  --color-accent-dark:  #2563EB;   /* emphasis — bleu-600 vif, lisible sur fond clair */
 
   /* Ombres dures (flat design) */
   --shadow-flat-sm: 2px 2px 0 var(--color-ink);
@@ -18,14 +18,30 @@
   --font-sans: "Inter", sans-serif;
 }
 
+/* ── View Transition (toggle dark/light) ─────────────────────────────────── */
+@keyframes theme-reveal {
+  from { clip-path: circle(0% at var(--toggle-x, 50%) var(--toggle-y, 50%)); }
+  to   { clip-path: circle(150% at var(--toggle-x, 50%) var(--toggle-y, 50%)); }
+}
+
+::view-transition-old(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  animation: theme-reveal 0.45s ease-in-out;
+  mix-blend-mode: normal;
+}
+
 /* ── Dark mode ────────────────────────────────────────────────────────────── */
 .dark {
-  --color-bg:          #111120;
-  --color-surface:     #1A1A2E;
-  --color-ink:         #F0EDE4;
-  --color-ink-muted:   #8A8A9E;
-  --color-accent:      #1E5F85;  /* bleu saturé sombre → texte crème lisible dessus */
-  --color-accent-dark: #7ABAE0;  /* bleu clair → visible sur fond sombre */
+  --color-bg:          #141414;   /* 60% — noir neutre */
+  --color-surface:     #1F1F1F;   /* 30% — gris très sombre */
+  --color-ink:         #F5F4F0;   /* texte clair */
+  --color-ink-muted:   #A3A3A3;
+  --color-accent:      #1E3A5F;   /* hover BG — bleu nuit, texte clair lisible */
+  --color-accent-dark: #60A5FA;   /* emphasis — bleu-400 clair, visible sur fond sombre */
 }
 
 /* ── Base ─────────────────────────────────────────────────────────────────── */

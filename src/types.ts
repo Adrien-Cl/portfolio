@@ -8,6 +8,7 @@ export interface Project {
   title: string;
   category: string;
   filter: ProjectFilter;
+  bts?: "E5" | "E6";
   desc: string;
   brief: string;
   imageFrame?: boolean;

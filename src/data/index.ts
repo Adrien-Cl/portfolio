@@ -134,6 +134,7 @@ export const PROJECTS: {
   title: string;
   category: string;
   filter: ProjectFilter;
+  bts?: "E5" | "E6";
   desc: string;
   brief: string;
   imageFrame?: boolean;
@@ -149,6 +150,7 @@ export const PROJECTS: {
     title: "Portfolio Professionnel",
     category: "Développement Web",
     filter: "dev",
+    bts: "E6",
     desc: "Développement d'un portfolio professionnel avec React, TypeScript et Framer Motion pour présenter mes compétences et réalisations.",
     brief:
       "Créer un portfolio en ligne qui reflète mon identité de développeur web et UI/UX, utilisable comme carte de visite professionnelle pour les recruteurs et clients.",
@@ -192,6 +194,7 @@ export const PROJECTS: {
     title: "Application de Réservation Scolaire",
     category: "Développement Logiciel",
     filter: "software",
+    bts: "E6",
     desc: "Application client lourd en Python permettant aux professeurs de réserver des salles et ressources informatiques pour leurs classes.",
     brief:
       "Concevoir et développer une application desktop destinée aux enseignants d'un établissement scolaire fictif, leur permettant de gérer les réservations de salles et de matériel pédagogique (salles informatiques, vidéoprojecteurs, etc.). Projet pédagogique réalisé en BTS pour illustrer la gestion de projet et la conception d'application métier.",
@@ -234,6 +237,7 @@ export const PROJECTS: {
     title: "Gestion de Parc Informatique et ticketing — GLPI",
     category: "Infrastructure & Réseau",
     filter: "infra",
+    bts: "E5",
     desc: "Mise en place d'une infrastructure virtualisée sous VMware avec Windows Server (AD, DHCP, DNS), un poste client joint au domaine et un serveur Ubuntu hébergeant GLPI pour la gestion de parc et de tickets.",
     brief:
       "Déployer une infrastructure réseau complète en environnement virtualisé pour gérer un parc informatique : serveur Windows avec les rôles AD/DHCP/DNS, remontée automatique des postes via GPO et authentification centralisée LDAP dans GLPI.",
