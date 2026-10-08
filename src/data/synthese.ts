@@ -203,6 +203,26 @@ export const SYNTHESE: SectionSynthese[] = [
   },
   {
     section: "Réalisations en milieu professionnel — 2ᵉ année",
-    items: [],
+    items: [
+      {
+        title: "Serveur Debian, Docker & déploiement continu — CNFPT Rennes",
+        projectTitle: "Serveur Debian, Docker & Déploiement Continu",
+        docs: [
+          "Rapports d'audit OpenSCAP (43 % → 91 %) et scripts de remédiation",
+          "Stacks Docker déployées via Portainer depuis Gitea (CI/CD)",
+          "Reverse proxy Nginx Proxy Manager avec SSL automatique",
+          "Sauvegardes quotidiennes des volumes et BDD vers un NAS",
+        ],
+        periode: "07/26 → 12/26",
+        competences: {
+          C1: true,
+          C2: true,
+          C3: false,
+          C4: true,
+          C5: true,
+          C6: false,
+        },
+      },
+    ],
   },
 ];

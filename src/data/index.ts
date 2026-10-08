@@ -255,6 +255,30 @@ export const PROJECTS: {
     img: "/media/glpi.png",
     imageFrame: true,
   },
+  {
+    title: "Serveur Debian, Docker & Déploiement Continu",
+    category: "Infrastructure & DevOps",
+    filter: "infra",
+    bts: "E5",
+    desc: "Installation et sécurisation d'un serveur Debian hébergeant les applications métiers de la région via Docker et Portainer, avec un Gitea auto-hébergé et une chaîne CI/CD complète.",
+    brief:
+      "Mettre en place un serveur capable d'héberger et de déployer automatiquement les applications métiers développées en interne : versionnement du code sur une forge auto-hébergée, pipelines CI/CD, déploiement des stacks Docker depuis le dépôt Git, supervision et accès sécurisé en HTTPS.",
+    demarche: [
+      "Installation de Debian puis audit de sécurité avec OpenSCAP : analyse du rapport de conformité et écriture de scripts (avec l'aide de Claude) pour corriger chaque écart relevé ou justifier ceux qui ne s'appliquaient pas au contexte. Le score de conformité est passé de 43 % à 91 %.",
+      "Installation de Docker et de Portainer pour administrer les conteneurs et les stacks depuis une interface centralisée.",
+      "Déploiement d'un Gitea auto-hébergé pour versionner le code des applications métiers, et écriture des pipelines CI/CD (build, tests, publication des images).",
+      "Configuration de Portainer en mode GitOps : les stacks sont récupérées directement depuis les dépôts Gitea et redéployées automatiquement à chaque mise à jour.",
+      "Ajout de stacks d'outillage : Nginx Proxy Manager (reverse proxy + certificats SSL Let's Encrypt automatiques), Beszel (supervision des ressources), Dozzle (logs des conteneurs), Homarr (tableau de bord des services) et CloudBeaver (administration des bases de données).",
+      "Automatisation de l'exploitation : sauvegardes quotidiennes des volumes Docker (Nautical) et des bases de données (DB-Backup) envoyées vers un NAS, mises à jour de sécurité automatiques et tâche cron de nettoyage des ressources Docker inutilisées.",
+    ],
+    realisation:
+      "Serveur Debian durci à partir d'un audit OpenSCAP (score de conformité passé de 43 % à 91 % grâce aux corrections scriptées, écarts restants documentés), faisant tourner l'ensemble des services en conteneurs Docker. Le code des applications métiers est hébergé sur Gitea ; chaque push déclenche le pipeline CI/CD, puis Portainer récupère la stack depuis le dépôt et la redéploie. Toutes les applications sont exposées derrière Nginx Proxy Manager avec des certificats SSL renouvelés automatiquement, et l'état du serveur est suivi via Beszel et Dozzle. Les volumes et bases de données sont sauvegardés chaque jour sur un NAS, le système applique ses mises à jour de sécurité automatiquement et un cron purge régulièrement les fichiers temporaires de Docker.",
+    autocritique:
+      "Ce projet m'a fait passer du rôle de développeur à celui de responsable de toute la chaîne, du commit à la mise en production. Sa principale limite est de reposer sur un seul serveur : si une application ou la machine tombe, le service est interrompu. L'étape suivante serait de passer à un orchestrateur — Docker Swarm, simple à mettre en place, ou Kubernetes, qui s'intègre bien avec Portainer — sur plusieurs nœuds, pour redémarrer ou déplacer automatiquement les conteneurs en cas de panne. J'ajouterais aussi des alertes de supervision et des tests de restauration réguliers des sauvegardes.",
+    tech: ["Debian", "OpenSCAP", "Docker", "Portainer", "Gitea", "CI/CD", "Nginx Proxy Manager", "Beszel", "Dozzle", "Homarr", "CloudBeaver", "Nautical", "DB-Backup", "Cron"],
+    img: "/media/infra-docker.png",
+    imageFrame: true,
+  },
 ];
 
 // ─── Compétences ─────────────────────────────────────────────────────────────
