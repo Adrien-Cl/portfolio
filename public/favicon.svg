@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    .ink { fill: #1A1A1A; }
+    .card { fill: #F5F4F0; stroke: #1A1A1A; }
+    .mark { fill: none; stroke: #1A1A1A; }
+    .accent { fill: #2563EB; }
+    @media (prefers-color-scheme: dark) {
+      .ink { fill: #F5F4F0; }
+      .card { fill: #141414; stroke: #F5F4F0; }
+      .mark { stroke: #F5F4F0; }
+      .accent { fill: #60A5FA; }
+    }
+  </style>
+  <!-- Ombre plate décalée (cf. shadow-flat du site) -->
+  <rect class="ink" x="4" y="4" width="27" height="27" />
+  <!-- Carte -->
+  <rect class="card" x="2" y="2" width="26" height="26" stroke-width="2" />
+  <!-- A -->
+  <path class="mark" d="M4.6 20.5 L8 9 L11.4 20.5 M5.9 17 H10.1" stroke-width="2.4" stroke-linejoin="miter" />
+  <!-- C -->
+  <path class="mark" d="M21.1 11.05 A3.5 5.75 0 1 0 21.1 18.45" stroke-width="2.4" />
+  <!-- Point -->
+  <rect class="accent" x="23" y="18.25" width="2.5" height="2.5" />
+</svg>
